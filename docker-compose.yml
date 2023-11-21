@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: islasgeci/templater:latest
+    image: islasgeci/clean_camera_data:latest
     command: bash
     volumes:
       - $PWD:/workdir
