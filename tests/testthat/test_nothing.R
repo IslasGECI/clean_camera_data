@@ -14,3 +14,12 @@ describe("Get version of the module", {
     expect_true(version_are_equal)
   })
 })
+
+describe("Get fecha de envio from name file", {
+  it("File: IG_CAMARA_TRAMPA_EXTRA_19NOV2023", {
+    file_name <- "IG_CAMARA_TRAMPA_EXTRA_19NOV2023.csv"
+    expected <- "19/Nov/2023"
+    obtained <- extract_date_from_filename(file_name)
+    expect_equal(obtained, expected)
+  })
+})
