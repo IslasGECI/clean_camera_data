@@ -6,6 +6,11 @@ extract_date_from_filename <- function(file_name) {
   glue::glue("{day}/{month}/{year}")
 }
 
+add_column_fecha_envio <- function(raw_data, date_send_data) {
+  raw_data |>
+    dplyr::mutate(Fecha_envio_datos = date_send_data)
+}
+
 return_one <- function() {
   return(1)
 }
