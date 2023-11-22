@@ -30,7 +30,7 @@ describe("Add column 'Fecha_envio_datos' after columns ''", {
   })
   it("Add column to Revision Memoria", {
     raw_data <- tibble::tibble("Fotos_capturadas" = 1:3, "Fecha_captura_foto" = letters[1:3])
-    expected <- tibble::tibble("Fotos_capturadas", Fecha_envio_datos = rep("25/Dic/2023", 3), "Fecha_captura_foto" = letters[1:3])
+    expected <- tibble::tibble("Fotos_capturadas" = 1:3, Fecha_envio_datos = rep("25/Dic/2023", 3), "Fecha_captura_foto" = letters[1:3])
     obtained <- add_column_fecha_envio_revision_memoria(raw_data, "25/Dic/2023")
     expect_equal(obtained, expected)
   })
