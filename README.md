@@ -7,6 +7,8 @@ parameter](https://github.com/IslasGECI//clean_camera_data/actions/workflows/act
 ![licencia](https://img.shields.io/github/license/IslasGECI/clean_camera_data)
 ![languages](https://img.shields.io/github/languages/top/IslasGECI/clean_camera_data)
 ![commits](https://img.shields.io/github/commit-activity/y/IslasGECI/clean_camera_data)
+![GitHub contributors](https://img.shields.io/github/contributors/IslasGECI/clean_camera_data)
+
 
 ## Step to use
 
