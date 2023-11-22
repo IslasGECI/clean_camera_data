@@ -10,3 +10,8 @@ add_column_fecha_envio_revision_campo <- function(raw_data, date_send_data) {
   raw_data |>
     dplyr::mutate(Fecha_envio_datos = date_send_data, .after = "Fecha_revision")
 }
+
+add_column_fecha_envio_revision_memoria <- function(raw_data, date_send_data) {
+  raw_data |>
+    dplyr::mutate(Fecha_envio_datos = date_send_data, .after = "Fotos_capturadas")
+}
