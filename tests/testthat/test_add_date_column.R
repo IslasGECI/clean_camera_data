@@ -20,3 +20,12 @@ describe("Get fecha de envio from name file", {
     expect_equal(obtained, expected)
   })
 })
+
+describe("Add column 'Fecha_envio_datos' after columns ''", {
+  it("Add column", {
+    raw_data <- tibble:tibble("a" = 1:3, "b" = letters[1:3])
+    expected <- tibble:tibble("a" = 1:3, "b" = letters[1:3], Fecha_envio_datos = rep("22/Nov/2023", 3))
+    obtained <- add_column_fecha_envio(raw_data, "22/Nov/2023")
+    expect_equal(obtained, expected)
+  })
+})
