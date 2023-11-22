@@ -2,6 +2,12 @@
 
 # Clean camera data
 [![codecov](https://codecov.io/gh/IslasGECI/clean_camera_data/graph/badge.svg?token=wyxnwZypMA)](https://codecov.io/gh/IslasGECI/clean_camera_data)
+![example branch
+parameter](https://github.com/IslasGECI//clean_camera_data/actions/workflows/actions.yml/badge.svg)
+![GitHub issues](https://img.shields.io/github/issues-pr/IslasGECI//clean_camera_data)
+![licencia](https://img.shields.io/github/license/IslasGECI/clean_camera_data)
+![languages](https://img.shields.io/github/languages/top/IslasGECI/clean_camera_data)
+![commits](https://img.shields.io/github/commit-activity/y/IslasGECI/clean_camera_data)
 
 ## Step to use
 
