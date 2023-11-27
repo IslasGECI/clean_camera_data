@@ -9,5 +9,9 @@ describe("Cli for module", {
     obtained_ncol <- ncol(obtained)
     expected_ncol <- 4
     expect_equal(obtained_ncol, expected_ncol)
+
+    add_data_check_column_extra_campo(xlsx_name, csv_name)
+    default_output <- "/workdir/cameras_extra_revision_campo.csv"
+    expect_true(testtools::exist_output_file(default_output))
   })
 })
