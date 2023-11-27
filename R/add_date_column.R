@@ -1,5 +1,6 @@
 extract_date_from_filename <- function(file_name) {
-  date <- stringr::str_sub(file_name, -13)
+  splited_string <- stringr::str_split(file_name, "\\.")[[1]][1]
+  date <- stringr::str_sub(splited_string, -9)
   day <- stringr::str_sub(date, 1, 2)
   month <- stringr::str_to_title(stringr::str_sub(date, 3, 5))
   year <- stringr::str_sub(date, 6, 9)
