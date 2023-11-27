@@ -7,8 +7,23 @@ jobs:
     - name: Copia repositorio
       uses: actions/checkout@main
     - name: Construye imagen
-      run: docker build --tag islasgeci .
+      run: docker build --tag islasgeci/clean_camera_data .
     - name: Verifica el formato
-      run: docker run islasgeci make check
+      run: docker run islasgeci/clean_camera_data make check
     - name: Corre pruebas y evalúa cobertura
-      run: docker run islasgeci make coverage
+      run: docker run islasgeci/clean_camera_data make coverage
+    - name: Create/Update tag
+      uses: rickstaa/action-create-tag@main
+      with:
+        tag: "latest"
+        message: "Latest release"
+        force_push_tag: true
+    - name: Docker log-in
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+    - name: Sube latest a Docker Hub
+      run: docker push islasgeci/clean_camera_data:latest
+    - name: Sube sha a Docker Hub
+      run: docker push islasgeci/clean_camera_data:${GITHUB_SHA:0:4}
