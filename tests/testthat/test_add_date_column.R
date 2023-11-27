@@ -18,6 +18,11 @@ describe("Get fecha de envio from name file", {
     expected <- "05/Nov/2023"
     obtained <- extract_date_from_filename(file_name)
     expect_equal(obtained, expected)
+
+    file_name <- "IG_CAMARA_TRAMPA_EXTRA_05NOV2023.xlsx"
+    expected <- "05/Nov/2023"
+    obtained <- extract_date_from_filename(file_name)
+    expect_equal(obtained, expected)
   })
 })
 
