@@ -28,7 +28,7 @@ describe("Get fecha de envio from name file", {
 
 describe("Add column 'Fecha_envio_datos' after columns ''", {
   it("Add column to Revision Campo", {
-    raw_data <- tibble::tibble("Fecha_revision" = 1:3, "Responsable" = letters[1:3])
+    raw_data <- tibble::tibble("Ultima_revision" = "fecha", "Fecha_revision" = 1:3, "Responsable" = letters[1:3], "Lineas" = 4:6)
     expected <- tibble::tibble("Fecha_revision" = 1:3, Fecha_envio_datos = rep("22/Nov/2023", 3), "Responsable" = letters[1:3])
     obtained <- add_column_fecha_envio_revision_campo(raw_data, "22/Nov/2023")
     expect_equal(obtained, expected)
