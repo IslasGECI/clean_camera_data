@@ -1,4 +1,10 @@
 describe("Cli for module", {
+  it("write_camera_info", {
+    csv_name <- "/workdir/tests/data/cameras_extra_revision_campo_with_coordinates.csv"
+    output_path <- "/workdir/tests/data/cameras_info.csv"
+    write_camera_info(csv_name, output_path)
+    expect_true(testtools::exist_output_file(output_path))
+  })
   it("add_column", {
     csv_name <- "/workdir/tests/data/cameras_extra_revision_campo.csv"
     xlsx_name <- "IG_CAMARA_TRAMPA_EXTRA_23NOV2023.xls"
