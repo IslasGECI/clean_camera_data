@@ -20,3 +20,10 @@ write_camera_info <- function(csv_name, output_path) {
   extract_cameras_info(raw_data) |>
     readr::write_csv(output_path)
 }
+
+#' @export
+write_cameras_last_check <- function(csv_name, output_path) {
+  raw_data <- readr::read_csv(csv_name, show_col_types = FALSE)
+  select_last_check_date(raw_data) |>
+    readr::write_csv(output_path)
+}
