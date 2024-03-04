@@ -1,4 +1,4 @@
-split_cameras_and_check_date <- function(cameras_with_check_date) {
+drop_last_check_date <- function(cameras_with_check_date) {
   cameras_with_check_date |> dplyr::select(-c("Ultima_revision"))
 }
 
