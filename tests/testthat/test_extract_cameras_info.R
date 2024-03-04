@@ -12,5 +12,10 @@ describe("extract cameras info", {
     obtained_ncol <- ncol(obtained)
     expected_ncol <- 4
     expect_equal(obtained_ncol, expected_ncol)
+
+    obtained <- select_last_check_date(cameras_with_check_date)
+    obtained_ncol <- ncol(obtained)
+    expected_ncol <- 2
+    expect_equal(obtained_ncol, expected_ncol)
   })
 })
