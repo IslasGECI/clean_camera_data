@@ -8,6 +8,9 @@ describe("extract cameras info", {
   })
   it("split cameras info and check date", {
     cameras_with_check_date <- readr::read_csv("/workdir/tests/data/cameras_info_for_tests.csv", show_col_types = FALSE)
-    split_cameras_and_check_date(cameras_with_check_date)
+    obtained <- split_cameras_and_check_date(cameras_with_check_date)
+    obtained_ncol <- ncol(obtained)
+    expected_ncol <- 4
+    expect_equal(obtained_ncol, expected_ncol)
   })
 })
