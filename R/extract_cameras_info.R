@@ -1,8 +1,3 @@
-drop_last_check_date <- function(cameras_with_check_date) {
-  cameras_with_check_date |> dplyr::select(-c("Ultima_revision"))
-}
-
-
 select_last_check_date <- function(cameras_with_check_date) {
   cameras_with_check_date |> dplyr::select(all_of(c("ID_camara", "Ultima_revision")))
 }
