@@ -1,4 +1,11 @@
 describe("Cli for module", {
+  it("write_cameras_last_check", {
+    csv_name <- "/workdir/tests/data/cameras_extra_revision_campo_with_coordinates.csv"
+    output_path <- "/workdir/tests/data/cameras_last_check.csv"
+    write_cameras_last_check(csv_name, output_path)
+    expect_true(testtools::exist_output_file(output_path))
+    testtools::delete_output_file(output_path)
+  })
   it("write_camera_info", {
     csv_name <- "/workdir/tests/data/cameras_extra_revision_campo_with_coordinates.csv"
     output_path <- "/workdir/tests/data/cameras_info.csv"
