@@ -18,6 +18,7 @@ add_data_check_column_to_memoria <- function(xlsx_name, csv_name, output_path = 
 write_camera_info <- function(csv_name, output_path) {
   raw_data <- readr::read_csv(csv_name, show_col_types = FALSE)
   extract_cameras_info(raw_data) |>
+    sort_cameras_by_id() |>
     readr::write_csv(output_path)
 }
 

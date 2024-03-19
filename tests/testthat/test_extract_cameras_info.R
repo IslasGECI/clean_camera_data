@@ -22,4 +22,22 @@ describe("`sort_cameras_ by_id()`", {
     obtained_cameras <- sort_cameras_by_id(messy_cameras)
     expect_equal(obtained_cameras, expected_cameras)
   })
+  it("Between CA and CT", {
+    messy_cameras <- tibble::tibble(ID_camara = c("CT-08-004-LM", "CA-01-002-CA"))
+    expected_cameras <- tibble::tibble(ID_camara = c("CA-01-002-CA", "CT-08-004-LM"))
+    obtained_cameras <- sort_cameras_by_id(messy_cameras)
+    expect_equal(obtained_cameras, expected_cameras)
+  })
+  it("Between zones", {
+    messy_cameras <- tibble::tibble(ID_camara = c("CA-02-002-CA", "CA-01-002-CA"))
+    expected_cameras <- tibble::tibble(ID_camara = c("CA-01-002-CA", "CA-02-002-CA"))
+    obtained_cameras <- sort_cameras_by_id(messy_cameras)
+    expect_equal(obtained_cameras, expected_cameras)
+  })
+  it("Between zones", {
+    messy_cameras <- tibble::tibble(ID_camara = c("CA-01-001-ED", "CA-01-001-CA"))
+    expected_cameras <- tibble::tibble(ID_camara = c("CA-01-001-CA", "CA-01-001-ED"))
+    obtained_cameras <- sort_cameras_by_id(messy_cameras)
+    expect_equal(obtained_cameras, expected_cameras)
+  })
 })
