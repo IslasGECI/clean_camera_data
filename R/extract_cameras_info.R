@@ -7,3 +7,8 @@ extract_cameras_info <- function(revision_campo_tibble) {
   columns_of_interest <- c("ID_camara", "Coordenada_Este", "Coordenada_Norte", "Lineas")
   return(revision_campo_tibble |> dplyr::select(all_of(columns_of_interest)))
 }
+
+sort_cameras_by_id <- function(messy_cameras) {
+  messy_cameras |>
+    dplyr::arrange(ID_camara)
+}
