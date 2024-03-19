@@ -14,3 +14,12 @@ describe("extract cameras info", {
     expect_equal(obtained_ncol, expected_ncol)
   })
 })
+
+describe("`sort_cameras_ by_id()`", {
+  it("Only CA", {
+    messy_cameras <- tibble::tibble(ID_camara = c("CA-01-005-CA", "CA-01-002-CA", "CA-01-004-CA", "CA-01-001-CA", "CA-01-003-CA"))
+    expected_cameras <- tibble::tibble(ID_camara = c("CA-01-001-CA", "CA-01-002-CA", "CA-01-003-CA", "CA-01-004-CA", "CA-01-005-CA"))
+    obtained_cameras <- sort_cameras_by_id(messy_cameras)
+    expect_equal(obtained_cameras, expected_cameras)
+  })
+})
