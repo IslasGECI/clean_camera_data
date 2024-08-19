@@ -49,6 +49,9 @@ describe("Cli for module", {
     obtained_ncol <- ncol(obtained)
     expected_ncol <- 4
     expect_equal(obtained_ncol, expected_ncol)
+    obtained_nrow <- nrow(obtained)
+    expected_nrow <- 4
+    expect_equal(obtained_nrow, expected_nrow)
     testtools::delete_output_file(output_with_date)
   })
 })
