@@ -1,5 +1,5 @@
 describe("Calculate effor by month and week", {
-  revision_campo <- read_csv("/workdir/tests/data/revision_campo_cameras_example.csv", show_col_types = FALSE)
+  revision_campo <- readr::read_csv("/workdir/tests/data/revision_campo_cameras_example.csv", show_col_types = FALSE)
   it("check columns", {
     obtained_effort <- calculate_effort(revision_campo)
     expected_columns <- c("e", "Session", "Ocassion")
