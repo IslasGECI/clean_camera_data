@@ -13,14 +13,14 @@ describe("Cli for module", {
     output_path <- "/workdir/tests/data/cameras_last_check.csv"
     write_cameras_last_check(csv_name, output_path)
     expect_true(testtools::exist_output_file(output_path))
-    testtools::delete_output_file(output_path)
+    testtools::if_exist_remove(output_path)
   })
   it("write_camera_info", {
     csv_name <- "/workdir/tests/data/cameras_extra_revision_campo_with_coordinates.csv"
     output_path <- "/workdir/tests/data/cameras_info.csv"
     write_camera_info(csv_name, output_path)
     expect_true(testtools::exist_output_file(output_path))
-    testtools::delete_output_file(output_path)
+    testtools::if_exist_remove(output_path)
   })
   it("add_column", {
     csv_name <- "/workdir/tests/data/cameras_extra_revision_campo.csv"
@@ -29,7 +29,7 @@ describe("Cli for module", {
     add_data_check_column_to_campo(xlsx_name, csv_name, output_path = output_with_date)
     expect_true(testtools::exist_output_file(output_with_date))
     obtained <- readr::read_csv(output_with_date, show_col_types = FALSE)
-    testtools::delete_output_file(output_with_date)
+    testtools::if_exist_remove(output_with_date)
     obtained_ncol <- ncol(obtained)
     expected_ncol <- 4
     expect_equal(obtained_ncol, expected_ncol)
@@ -37,7 +37,7 @@ describe("Cli for module", {
     add_data_check_column_to_campo(xlsx_name, csv_name)
     default_output <- "/workdir/cameras_extra_revision_campo.csv"
     expect_true(testtools::exist_output_file(default_output))
-    testtools::delete_output_file(default_output)
+    testtools::if_exist_remove(default_output)
   })
   it("add date column to memoria", {
     csv_name <- "/workdir/tests/data/cameras_extra_revision_memoria.csv"
@@ -52,6 +52,6 @@ describe("Cli for module", {
     obtained_nrow <- nrow(obtained)
     expected_nrow <- 4
     expect_equal(obtained_nrow, expected_nrow)
-    testtools::delete_output_file(output_with_date)
+    testtools::if_exist_remove(output_with_date)
   })
 })
