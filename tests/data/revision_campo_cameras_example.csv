@@ -1,0 +1,24 @@
+ID_camara_trampa,Zona,Coordenada_Este,Coordenada_Norte,Fecha_revision_campo,Fecha_envio_datos,Responsable_cambio_memoria,Revision,Estado_camara,Estado_memoria,Porcentaje_de_bateria,Observaciones
+CT-01-002-AG,1,376042,3196829,NA,16/Sep/2018,NA,si,A,NA,NA,NA
+CT-01-002-AG,1,376086,3196877,NA,23/Dic/2018,NA,si,A,NA,NA,NA
+CT-01-002-AG,1,376086,3196877,NA,05/May/2019,NA,si,A,NA,NA,Formato de fecha mal
+CT-01-002-AG,1,376086,3196877,NA,09/Feb/2019,NA,si,A,NA,NA,NA
+CT-01-002-AG,1,376086,3196877,NA,24/Ene/2019,NA,si,D,NA,NA,NA
+CT-01-002-AG,1,376086,3196877,NA,31/Mar/2019,NA,si,A,NA,NA,Fecha y hora mal; revisar sensibilidad
+CT-01-002-AG,1,376086,3196877,NA,11/Ago/2019,Miguel Vazquez,si,A,MF,35,NA
+CT-01-002-AG,1,376086,3196877,NA,15/Ago/2019,Miguel Vazquez,si,A,MF,35,Melpo
+CT-01-002-AG,1,376086,3196877,NA,27/Sep/2019,Karem Ramirez,si,A,MF,36,NA
+CT-01-002-AG,1,376086,3196877,NA,12/Ene/2020,Alejandro Romero,si,A,MF,39,NA
+CT-01-002-AG,1,376086,3196877,NA,26/Abr/2020,Shamed Galicia,si,A,NA,NA,No Se Encontro La Camara Trampa
+CT-04-049-JV,4,372505,3211174,21/Feb/2023,26/Feb/2023,Michel Cortez,si,D,MF,68,Se encontro descargada
+CT-04-049-JV,4,372505,3211174,07/Jul/2023,09/Jul/2023,Michel Cortez,si,A,MF,84,NA
+CT-04-049-JV,4,372505,3211174,09/Ago/2023,13/Ago/2023,Ana Delgadillo,si,A,MF,39,NA
+CT-04-049-JV,4,372505,3211174,06/Mar/2024,10/Mar/2024,Cristobal Sanchez,si,A,MF,36,en buen estado
+CT-04-049-JV,4,372505,3211174,26/Ago/2024,01/Sep/2024,Andrea Campos,si,A,MF,86,NA
+CT-04-049-JV,4,372505,3211174,NA,27/Abr/2025,NA,no,D,MF,NA,NA
+CT-04-049-JV,4,372505,3211174,11/Ago/2025,17/Ago/2025,Danna Montes,si,D,MF,59,NA
+CT-04-049-JV,4,372505,3211174,13/Oct/2025,19/Oct/2025,Guillermo Olvera,si,D,MF,51,estaba bloqueada por vegetacion
+CT-04-049-JV,4,372505,3211174,23/Oct/2025,26/Oct/2025,Ever Sanchez,si,A,MF,74,NA
+CT-04-049-JV,4,372505,3211174,29/Oct/2025,02/Nov/2025,Nicolas Nuñez,si,A,MF,49,NA
+CT-04-049-JV,4,372505,3211174,13/Nov/2025,16/Nov/2025,Gonzalo Castañeda,si,A,MF,45,NA
+CT-04-049-JV,4,372505,3211174,28/Nov/2025,30/Nov/2025,Jose Rodriguez,si,A,MF,19,NA
