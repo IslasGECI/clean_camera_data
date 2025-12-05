@@ -22,6 +22,7 @@ License: AGPL-3.0-or-later
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Suggests:
+    covr,
     devtools,
     roxygen2,
     testthat,
