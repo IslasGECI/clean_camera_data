@@ -1,4 +1,4 @@
-calculate_effort <- function(revision_campo) {
+change_to_tidy_effort_format <- function(revision_campo) {
   tibble::tibble(e = 1, Session = 2, Ocassion = 3)
 }
 get_session <- function(raw_data_with_date) {
