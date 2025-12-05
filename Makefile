@@ -58,7 +58,7 @@ green: format
 
 refactor: format
 	Rscript -e "devtools::test(stop_on_failure = TRUE)" \
-	&& (git add R/*.R tests/testthat/*.R && git commit -m "♻️  Refactor") \
+	&& (git add R/*.R tests/testthat/*.R && git commit -m "♻️ Refactor ${message}") \
 	|| git restore R/*.R tests/testthat/*.R
 	chmod g+w -R .
 
