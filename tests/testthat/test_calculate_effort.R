@@ -3,6 +3,6 @@ describe("Calculate effor by month and week", {
   it("check columns", {
     obtained_effort <- calculate_effort(revision_campo)
     expected_columns <- c("e", "Session", "Ocassion")
-    expect_true(colnames(obtained_columns) %in% expected_columns)
+    expect_true(colnames(obtained_effort) %in% expected_columns)
   })
 })
