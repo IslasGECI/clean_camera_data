@@ -1,16 +1,16 @@
 calculate_effort <- function(revision_campo) {
   tibble::tibble(e = 1, Session = 2, Ocassion = 3)
 }
-get_session <- function(data_trapping_hunting) {
-  months <- lubridate::month(data_trapping_hunting$Date)
-  years <- lubridate::year(data_trapping_hunting$Date)
-  sessions <- data_trapping_hunting %>%
+get_session <- function(raw_data_with_date) {
+  months <- lubridate::month(raw_data_with_date$Date)
+  years <- lubridate::year(raw_data_with_date$Date)
+  sessions <- raw_data_with_date %>%
     dplyr::mutate(Session = paste(years, months, sep = "-"))
   return(sessions)
 }
-get_ocassion <- function(raw_trapping_hunting) {
-  ocassions <- sapply(raw_trapping_hunting$Date, get_week_of_year_from_date, USE.NAMES = FALSE)
-  trapping_hunting_with_ocassions <- raw_trapping_hunting %>%
+get_ocassion <- function(raw_data_with_date) {
+  ocassions <- sapply(raw_data_with_date$Date, get_week_of_year_from_date, USE.NAMES = FALSE)
+  trapping_hunting_with_ocassions <- raw_data_with_date %>%
     dplyr::mutate(Ocassion = ocassions)
   return(trapping_hunting_with_ocassions)
 }
