@@ -15,8 +15,8 @@ get_ocassion <- function(raw_data_with_date) {
   return(trapping_hunting_with_ocassions)
 }
 get_week_of_year_from_date <- function(date) {
-  week_of_year <- lubridate::isoweek(date)
-  week_of_year <- is_first_day_of_year_in_first_week(date, week_of_year)
+  iso_week_of_year <- lubridate::isoweek(date)
+  week_of_year <- is_first_day_of_year_in_first_week(date, iso_week_of_year)
   month_of_year <- lubridate::month(date)
   if ((month_of_year == 1) & (week_of_year >= 52)) {
     week_of_year <- 1
