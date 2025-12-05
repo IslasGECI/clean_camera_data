@@ -14,7 +14,52 @@ describe("Calculate effor by month and week", {
   })
   it("test get_ocassion with new tables", {
     obtained_ocassion <- get_ocassion(example_tibble)
-    expected_ocassion <- c(32, 33, 43, 3, 9, 16, 20)
+    expected_ocassion <- c(32, 33, 42, 3, 9, 16, 20)
     expect_equal(obtained_ocassion$Ocassion, expected_ocassion)
+  })
+})
+describe("get_week_of_year_from_date", {
+  it("Testing January", {
+    expected_week <- 1
+    date <- "2007-01-01"
+    obtained_week <- get_week_of_year_from_date(date)
+    expect_equal(obtained_week, expected_week)
+    date <- "2008-01-01"
+    obtained_week <- get_week_of_year_from_date(date)
+    expect_equal(obtained_week, expected_week)
+    date <- "2009-01-01"
+    obtained_week <- get_week_of_year_from_date(date)
+    expect_equal(obtained_week, expected_week)
+    date <- "2010-01-01"
+    obtained_week <- get_week_of_year_from_date(date)
+    expect_equal(obtained_week, expected_week)
+    date <- "2011-01-01"
+    obtained_week <- get_week_of_year_from_date(date)
+    expect_equal(obtained_week, expected_week)
+    date <- "2012-01-01"
+    obtained_week <- get_week_of_year_from_date(date)
+    expect_equal(obtained_week, expected_week)
+  })
+  it("Testing December", {
+    expected_week <- 53
+    date <- "2007-12-31"
+    obtained_week <- get_week_of_year_from_date(date)
+    expect_equal(obtained_week, expected_week)
+    date <- "2008-12-31"
+    obtained_week <- get_week_of_year_from_date(date)
+    expect_equal(obtained_week, expected_week)
+    date <- "2009-12-31"
+    obtained_week <- get_week_of_year_from_date(date)
+    expect_equal(obtained_week, expected_week)
+    date <- "2010-12-31"
+    obtained_week <- get_week_of_year_from_date(date)
+    expect_equal(obtained_week, expected_week)
+    date <- "2011-12-31"
+    obtained_week <- get_week_of_year_from_date(date)
+    expect_equal(obtained_week, expected_week)
+    date <- "2012-12-31"
+    expected_week <- 54
+    obtained_week <- get_week_of_year_from_date(date)
+    expect_equal(obtained_week, expected_week)
   })
 })
