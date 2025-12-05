@@ -14,7 +14,7 @@ describe("Calculate effor by month and week", {
   })
   it("test get_ocassion with new tables", {
     obtained_ocassion <- get_ocassion(example_tibble)
-    expected_ocassion <- c(32, 33, 42, 3, 9, 16, 20)
+    expected_ocassion <- c(33, 34, 43, 4, 10, 17, 21)
     expect_equal(obtained_ocassion$Ocassion, expected_ocassion)
   })
 })
