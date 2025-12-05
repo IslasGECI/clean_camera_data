@@ -65,7 +65,7 @@ refactor: format
 setup: clean install
 
 install:
-	R -e "devtools::install()" && \
+	R -e "devtools::install(dependencies=TRUE)" && \
 	R -e "devtools::document()" && \
 	R -e "devtools::build()" && \
 	R -e "devtools::check(error_on = 'error')"
