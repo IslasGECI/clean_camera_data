@@ -6,6 +6,12 @@ describe("Calculate effor by month and week", {
     expected_columns <- c("e", "Session", "Ocassion")
     expect_true(all(obtained_columns %in% expected_columns))
   })
+  it("check filling of ocassions", {
+    obtained <- change_to_tidy_effort_format(revision_campo[22:23, ])
+    print(obtained)
+    expected_ocassions <- 3
+    expect_equal(nrow(obtained), expected_ocassions)
+  })
   example_tibble <- tibble::tibble(Date = c("2021-08-11", "2021-08-20", "2021-10-24", "2022-01-18", "2022-03-04", "2022-04-23", "2022-05-19"))
   it("test get_session with new tables", {
     obtained_session <- get_session(example_tibble)
