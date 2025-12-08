@@ -33,6 +33,7 @@ describe("Calculate effor by month and week", {
     expect_filled_date <- lubridate::ymd(c("2025-11-16", "2025-11-23", "2025-11-30", "2025-11-23"))
     expect_equal(obtained$Date, expect_filled_date)
     expect_equal(obtained$ID_camara_trampa, c(rep("CT-04-049-JV", 3), "CT-04-999-LM"))
+    expect_equal(obtained$Revision, c(rep("si", 4)))
   })
   it("check effort values", {
     obtained <- change_to_tidy_effort_format(revision_campo[22:23, ])
