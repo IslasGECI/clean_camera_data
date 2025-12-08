@@ -8,7 +8,9 @@ change_to_tidy_effort_format <- function(revision_campo) {
 fill_ocassions <- function(effort_data) {
   effort_data_filled <- effort_data |>
     dplyr::mutate(Date = lubridate::ymd(Date)) |>
+    dplyr::group_by(ID_camara_trampa) |>
     tidyr::complete(Date = seq.Date(min(Date, na.rm = TRUE), max(Date, na.rm = TRUE), by = "1 week")) |>
+    dplyr::ungroup() |>
     get_ocassion() |>
     tidyr::fill(ID_camara_trampa, .direction = "down")
   return(effort_data_filled)
