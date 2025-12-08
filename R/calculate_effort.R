@@ -7,8 +7,9 @@ change_to_tidy_effort_format <- function(revision_campo) {
 }
 fill_ocassions <- function(effort_data) {
   effort_data_filled <- effort_data |>
-    get_ocassion() |>
-    tidyr::complete(Ocassion = tidyr::full_seq(Ocassion, 1))
+    dplyr::mutate(Date = lubridate::ymd(Date)) |>
+    tidyr::complete(Date = seq.Date(min(Date, na.rm = TRUE), max(Date, na.rm = TRUE), by = "1 week")) |>
+    get_ocassion()
   return(effort_data_filled)
 }
 get_session <- function(raw_data_with_date) {
