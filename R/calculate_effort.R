@@ -12,7 +12,7 @@ fill_ocassions <- function(effort_data) {
     tidyr::complete(Date = seq.Date(min(Date, na.rm = TRUE), max(Date, na.rm = TRUE), by = "1 week")) |>
     dplyr::ungroup() |>
     get_ocassion() |>
-    tidyr::fill(c(ID_camara_trampa, Revision), .direction = "down")
+    tidyr::fill(c(ID_camara_trampa, Revision, Estado_camara), .direction = "down")
   return(effort_data_filled)
 }
 get_session <- function(raw_data_with_date) {
