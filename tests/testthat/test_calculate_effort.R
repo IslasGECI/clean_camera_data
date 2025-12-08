@@ -4,11 +4,11 @@ describe("Calculate effor by month and week", {
   it("check columns", {
     obtained_columns <- colnames(obtained_effort)
     expected_columns <- c("e", "Session", "Ocassion")
-    expect_true(all(obtained_columns %in% expected_columns))
+    expect_true(all(expected_columns %in% obtained_columns))
   })
   it("check filling of ocassions", {
     obtained <- change_to_tidy_effort_format(revision_campo[22:23, ])
-    print(obtained)
+    print(obtained$Ocassion)
     expected_ocassions <- 3
     expect_equal(nrow(obtained), expected_ocassions)
   })
