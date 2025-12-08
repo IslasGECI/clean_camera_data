@@ -1,8 +1,7 @@
 change_to_tidy_effort_format <- function(revision_campo) {
   revision_campo |>
     dplyr::rename(Date = Fecha_envio_datos) |>
-    get_ocassion() |>
-    tidyr::complete(Ocassion = tidyr::full_seq(Ocassion, 1)) |>
+    fill_ocassions() |>
     dplyr::mutate(e = dplyr::case_when(Estado_camara == "D" ~ 0, TRUE ~ 7), Session = 2)
 }
 fill_ocassions <- function(effort_data) {
