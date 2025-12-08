@@ -16,6 +16,12 @@ describe("Calculate effor by month and week", {
     expected_effort <- rep(7, 3)
     expect_equal(obtained$e, expected_effort)
   })
+  it("check effort values for deactivated trap", {
+    revision_campo$Estado_camara[23] <- "D"
+    obtained <- change_to_tidy_effort_format(revision_campo[22:23, ])
+    expected_effort <- c(7, 7, 0)
+    expect_equal(obtained$e, expected_effort)
+  })
   example_tibble <- tibble::tibble(Date = c("2021-08-11", "2021-08-20", "2021-10-24", "2022-01-18", "2022-03-04", "2022-04-23", "2022-05-19"))
   it("test get_session with new tables", {
     obtained_session <- get_session(example_tibble)
