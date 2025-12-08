@@ -34,6 +34,7 @@ describe("Calculate effor by month and week", {
     expect_equal(obtained$Date, expect_filled_date)
     expect_equal(obtained$ID_camara_trampa, c(rep("CT-04-049-JV", 3), "CT-04-999-LM"))
     expect_equal(obtained$Revision, c(rep("si", 4)))
+    expect_equal(obtained$Estado_camara, c(rep("A", 4)))
   })
   it("check effort values", {
     obtained <- change_to_tidy_effort_format(revision_campo[22:23, ])
