@@ -9,7 +9,8 @@ fill_ocassions <- function(effort_data) {
   effort_data_filled <- effort_data |>
     dplyr::mutate(Date = lubridate::ymd(Date)) |>
     tidyr::complete(Date = seq.Date(min(Date, na.rm = TRUE), max(Date, na.rm = TRUE), by = "1 week")) |>
-    get_ocassion()
+    get_ocassion() |>
+    tidyr::fill(ID_camara_trampa, .direction = "down")
   return(effort_data_filled)
 }
 get_session <- function(raw_data_with_date) {
