@@ -3,7 +3,7 @@ change_to_tidy_effort_format <- function(revision_campo) {
     dplyr::rename(Date = Fecha_envio_datos) |>
     get_ocassion() |>
     tidyr::complete(Ocassion = tidyr::full_seq(Ocassion, 1)) |>
-    dplyr::mutate(e = 7, Session = 2)
+    dplyr::mutate(e = dplyr::case_when(Estado_camara == "D" ~ 0, TRUE ~ 7), Session = 2)
 }
 get_session <- function(raw_data_with_date) {
   months <- lubridate::month(raw_data_with_date$Date)
