@@ -1,8 +1,9 @@
 change_to_tidy_effort_format <- function(revision_campo) {
+  days_of_effort_by_week <- 7
   revision_campo |>
     dplyr::rename(Date = Fecha_envio_datos) |>
     fill_ocassions() |>
-    dplyr::mutate(e = dplyr::case_when(Estado_camara == "D" ~ 0, TRUE ~ 7), Session = 2)
+    dplyr::mutate(e = dplyr::case_when(Estado_camara == "D" ~ 0, TRUE ~ days_of_effort_by_week), Session = 2)
 }
 fill_ocassions <- function(effort_data) {
   effort_data_filled <- effort_data |>
