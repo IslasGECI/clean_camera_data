@@ -14,9 +14,10 @@ describe("Calculate effor by month and week", {
       Estado_camara = rep("A", 2)
     )
     obtained <- fill_ocassions(revision_campo)
+    print(obtained)
     expected_ocassions <- 3
     expect_equal(nrow(obtained), expected_ocassions)
-    expect_filled_date <- c("2025-11-16", "2025-11-23", "2025-11-30")
+    expect_filled_date <- lubridate::ymd(c("2025-11-16", "2025-11-23", "2025-11-30"))
     expect_equal(obtained$Date, expect_filled_date)
   })
   it("check effort values", {
@@ -29,7 +30,6 @@ describe("Calculate effor by month and week", {
     obtained <- change_to_tidy_effort_format(revision_campo[22:23, ])
     expected_effort <- c(7, 7, 0)
     expect_equal(obtained$e, expected_effort)
-    print(obtained)
   })
   example_tibble <- tibble::tibble(Date = c("2021-08-11", "2021-08-20", "2021-10-24", "2022-01-18", "2022-03-04", "2022-04-23", "2022-05-19"))
   it("test get_session with new tables", {
