@@ -6,7 +6,7 @@ describe("Calculate effor by month and week", {
     expected_columns <- c("e", "Session", "Ocassion")
     expect_true(all(expected_columns %in% obtained_columns))
   })
-  it("check filling of ocassions", {
+  it("check filling of ocassions for one ID", {
     revision_campo <- tibble::tibble(
       Date = c("2025-11-16", "2025-11-30"),
       ID_camara_trampa = rep("CT-04-049-JV", 2),
@@ -14,12 +14,25 @@ describe("Calculate effor by month and week", {
       Estado_camara = rep("A", 2)
     )
     obtained <- fill_ocassions(revision_campo)
-    print(obtained)
     expected_ocassions <- 3
     expect_equal(nrow(obtained), expected_ocassions)
     expect_filled_date <- lubridate::ymd(c("2025-11-16", "2025-11-23", "2025-11-30"))
     expect_equal(obtained$Date, expect_filled_date)
     expect_equal(obtained$ID_camara_trampa, rep("CT-04-049-JV", 3))
+  })
+  it("check filling of ocassions for two ID", {
+    revision_campo <- tibble::tibble(
+      Date = c("2025-11-16", "2025-11-30", "2025-11-23"),
+      ID_camara_trampa = c("CT-04-049-JV", "CT-04-049-JV", "CT-04-999-LM"),
+      Revision = rep("si", 3),
+      Estado_camara = rep("A", 3)
+    )
+    obtained <- fill_ocassions(revision_campo)
+    expected_ocassions <- 4
+    expect_equal(nrow(obtained), expected_ocassions)
+    expect_filled_date <- lubridate::ymd(c("2025-11-16", "2025-11-23", "2025-11-30", "2025-11-23"))
+    expect_equal(obtained$Date, expect_filled_date)
+    expect_equal(obtained$ID_camara_trampa, c(rep("CT-04-049-JV", 3), "CT-04-999-LM"))
   })
   it("check effort values", {
     obtained <- change_to_tidy_effort_format(revision_campo[22:23, ])
