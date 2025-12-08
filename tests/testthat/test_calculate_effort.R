@@ -16,6 +16,8 @@ describe("Calculate effor by month and week", {
     obtained <- fill_ocassions(revision_campo)
     expected_ocassions <- 3
     expect_equal(nrow(obtained), expected_ocassions)
+    expect_filled_date <- c("2025-11-16", "2025-11-23", "2025-11-30")
+    expect_equal(obtained$Date, expect_filled_date)
   })
   it("check effort values", {
     obtained <- change_to_tidy_effort_format(revision_campo[22:23, ])
