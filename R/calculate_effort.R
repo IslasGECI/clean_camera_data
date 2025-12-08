@@ -5,6 +5,12 @@ change_to_tidy_effort_format <- function(revision_campo) {
     tidyr::complete(Ocassion = tidyr::full_seq(Ocassion, 1)) |>
     dplyr::mutate(e = dplyr::case_when(Estado_camara == "D" ~ 0, TRUE ~ 7), Session = 2)
 }
+fill_ocassions <- function(effort_data) {
+  effort_data_filled <- effort_data |>
+    get_ocassion() |>
+    tidyr::complete(Ocassion = tidyr::full_seq(Ocassion, 1))
+  return(effort_data_filled)
+}
 get_session <- function(raw_data_with_date) {
   months <- lubridate::month(raw_data_with_date$Date)
   years <- lubridate::year(raw_data_with_date$Date)
