@@ -21,6 +21,7 @@ get_cameras_effort <- function(joined_cameras_info) {
     gecitools::convert_spanish_dates() |>
     dplyr::mutate(Fecha_revision_campo = Fecha) |>
     dplyr::select(-Fecha) |>
+    dplyr::arrange(Fecha_envio_datos) |>
     dplyr::mutate(effort = dplyr::case_when(
       Estado_camara == "A" ~ as.numeric(Fecha_envio_datos - dplyr::lag(Fecha_envio_datos)),
       Estado_camara == "D" ~ as.numeric(Fecha_revision_campo - dplyr::lag(Fecha_envio_datos)),
