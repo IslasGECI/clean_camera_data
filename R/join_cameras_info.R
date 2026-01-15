@@ -12,3 +12,14 @@ get_weekly_pictures_summary <- function(revision_memoria_df) {
       Individuos_capturados = sum(Individuos_capturados, na.rm = TRUE)
     )
 }
+
+get_cameras_effort <- function(joined_cameras_info) {
+  joined_cameras_info |>
+    dplyr::mutate(Fecha = Fecha_envio_datos) |>
+    gecitools::convert_spanish_dates() |>
+    dplyr::mutate(Fecha_envio_datos = Fecha, Fecha = Fecha_revision_campo) |>
+    gecitools::convert_spanish_dates() |>
+    dplyr::mutate(Fecha_revision_campo = Fecha) |>
+    dplyr::select(-Fecha) |>
+    dplyr::mutate(effort = 0)
+}
