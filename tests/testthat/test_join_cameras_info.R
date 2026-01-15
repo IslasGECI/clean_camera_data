@@ -3,8 +3,12 @@ describe("join into one table the info from camera traps", {
   revision_memoria_df <- readr::read_csv("/workdir/tests/data/camaras_revision_memoria.csv", show_col_types = FALSE)
   it("preprocess memory check data", {
     obtained <- get_weekly_pictures_summary(revision_memoria_df)
+    print(obtained)
     expected_nrows <- 3
     expect_equal(nrow(obtained), expected_nrows)
+    obtained_first_row <- obtained[1, ]
+    expect_equal(obtained_first_row$Fotos_capturadas, 5504)
+    expect_equal(obtained_first_row$Individuos_capturados, 3)
   })
   it("assert columns of joined", {
     obtained <- join_cameras_info(revision_campo_df, revision_memoria_df)
