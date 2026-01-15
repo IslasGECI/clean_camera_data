@@ -25,8 +25,9 @@ describe("join into one table the info from camera traps", {
       Individuos_capturados = c(3, 0, 4),
       Estado_camara = c("A", "A", "D")
     )
+    obtained <- get_cameras_effort(joined_cameras_info)
+    print(obtained)
+    obtained_colnames <- colnames(obtained)
+    expect_true("effort" %in% obtained_colnames)
   })
-  obtained <- get_cameras_effort(joined_cameras_info)
-  obtained_colnames <- colnames(obtained)
-  expect_true("effort" %in% obtained_colnames)
 })
