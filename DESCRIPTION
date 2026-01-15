@@ -10,17 +10,18 @@ Config/testthat/edition: 3
 Description: Plantilla de Ciencia de Datos en GECI para proyectos en R
 Encoding: UTF-8
 Imports:
-    R6,
     dplyr,
+    gecitools,
     glue,
     lubridate,
+    R6,
     readr,
     stringr,
-    tibble
+    tibble,
 LazyData: true
 License: AGPL-3.0-or-later
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.3
 Suggests:
     covr,
     devtools,
@@ -28,6 +29,7 @@ Suggests:
     testthat,
     testtools
 Remotes:
-    IslasGECI/testtools
+    IslasGECI/gecitools,
+    IslasGECI/testtools,
 Type: Package
 Version: 0.2.0
