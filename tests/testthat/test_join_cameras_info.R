@@ -32,5 +32,8 @@ describe("join into one table the info from camera traps", {
     obtained_second_row <- obtained[2, ]
     expected_second_row_effort <- 7
     expect_equal(obtained_second_row$effort, expected_second_row_effort)
+    obtained_third_row <- obtained[3, ]
+    expected_second_row_effort <- 15
+    expect_equal(obtained_second_row$effort, expected_second_row_effort)
   })
 })
