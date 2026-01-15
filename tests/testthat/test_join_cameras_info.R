@@ -28,5 +28,5 @@ describe("join into one table the info from camera traps", {
   })
   obtained <- get_cameras_effort(joined_cameras_info)
   obtained_colnames <- colnames(obtained)
-  expect_true("Effort" %in% obtained_colnames)
+  expect_true("effort" %in% obtained_colnames)
 })
