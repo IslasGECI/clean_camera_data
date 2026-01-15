@@ -15,16 +15,20 @@ get_weekly_pictures_summary <- function(revision_memoria_df) {
 
 get_cameras_effort <- function(joined_cameras_info) {
   joined_cameras_info |>
-    dplyr::mutate(Fecha = Fecha_envio_datos) |>
-    gecitools::convert_spanish_dates() |>
-    dplyr::mutate(Fecha_envio_datos = Fecha, Fecha = Fecha_revision_campo) |>
-    gecitools::convert_spanish_dates() |>
-    dplyr::mutate(Fecha_revision_campo = Fecha) |>
-    dplyr::select(-Fecha) |>
+    transform_spanish_dates_to_iso_format() |>
     dplyr::arrange(Fecha_envio_datos) |>
     dplyr::mutate(effort = dplyr::case_when(
       Estado_camara == "A" ~ as.numeric(Fecha_envio_datos - dplyr::lag(Fecha_envio_datos)),
       Estado_camara == "D" ~ as.numeric(Fecha_revision_campo - dplyr::lag(Fecha_envio_datos)),
       TRUE ~ 0
     ))
+}
+transform_spanish_dates_to_iso_format <- function(joined_cameras_info) {
+  joined_cameras_info |>
+    dplyr::mutate(Fecha = Fecha_envio_datos) |>
+    gecitools::convert_spanish_dates() |>
+    dplyr::mutate(Fecha_envio_datos = Fecha, Fecha = Fecha_revision_campo) |>
+    gecitools::convert_spanish_dates() |>
+    dplyr::mutate(Fecha_revision_campo = Fecha) |>
+    dplyr::select(-Fecha)
 }
