@@ -16,4 +16,17 @@ describe("join into one table the info from camera traps", {
     expected_nrows <- 3
     expect_equal(nrow(obtained), expected_nrows)
   })
+  it("calculate effort from joined table", {
+    joined_cameras_info <- tibble::tibble(
+      ID_camara_trampa = rep("CA-03-012-CA", 3),
+      Fotos_capturadas = c(5504, 760, 1210),
+      Fecha_envio_datos = c("02/Nov/2025", "09/Nov/2025", "30/Nov/2025"),
+      Fecha_revision_campo = c("28/Oct/2025", "07/Nov/2025", "24/Nov/2025"),
+      Individuos_capturados = c(3, 0, 4),
+      Estado_camara = c("A", "A", "D")
+    )
+  })
+  obtained <- get_cameras_effort(joined_cameras_info)
+  obtained_colnames <- colnames(obtained)
+  expect_true("Effort" %in% obtained_colnames)
 })
