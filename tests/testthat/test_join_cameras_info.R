@@ -20,8 +20,8 @@ describe("join into one table the info from camera traps", {
     joined_cameras_info <- tibble::tibble(
       ID_camara_trampa = rep("CA-03-012-CA", 3),
       Fotos_capturadas = c(5504, 760, 1210),
-      Fecha_envio_datos = c("02/Nov/2025", "09/Nov/2025", "30/Nov/2025"),
-      Fecha_revision_campo = c("28/Oct/2025", "07/Nov/2025", "24/Nov/2025"),
+      Fecha_envio_datos = c("09/Nov/2025", "02/Nov/2025", "30/Nov/2025"),
+      Fecha_revision_campo = c("07/Nov/2025", "28/Oct/2025", "24/Nov/2025"),
       Individuos_capturados = c(3, 0, 4),
       Estado_camara = c("A", "A", "D")
     )
