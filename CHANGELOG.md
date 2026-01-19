@@ -12,9 +12,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### Changed
-- Cli function `write_camera_info()` arrange list by ID
 
 ### Removed
+
+## [0.3.0] - 2026-01-19
+### Added
+- Cli function `write_cameras_summary()` to get a summary of the installed cameras.
+
+### Changed
+- Cli function `write_camera_info()` arrange list by ID
 
 ## [0.2.0] - 2024-03-04
 

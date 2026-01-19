@@ -11,6 +11,7 @@ Description: Plantilla de Ciencia de Datos en GECI para proyectos en R
 Encoding: UTF-8
 Imports:
     dplyr,
+    geci.optparse,
     gecitools,
     glue,
     lubridate,
@@ -30,6 +31,7 @@ Suggests:
     testtools
 Remotes:
     IslasGECI/gecitools,
+    IslasGECI/optparse,
     IslasGECI/testtools,
 Type: Package
-Version: 0.2.0
+Version: 0.3.0
