@@ -1,9 +1,7 @@
 calculate_cameras_summary <- function(revision_campo_df, revision_memoria_df) {
-  joined_cameras_info <- revision_campo_df |>
-    join_cameras_info(revision_memoria_df)
+  joined_cameras_info <- join_cameras_info(revision_campo_df, revision_memoria_df)
   summary_df <- get_cameras_effort(joined_cameras_info) |>
-    summarise_cameras_info()
-  summary_df |>
+    summarise_cameras_info() |>
     dplyr::rename(Date = Fecha_envio_datos)
 }
 summarise_cameras_info <- function(joined_cameras_with_effort) {
