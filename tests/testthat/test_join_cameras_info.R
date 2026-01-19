@@ -1,3 +1,12 @@
+describe("calculate cameras summary", {
+  revision_campo_df <- readr::read_csv("/workdir/tests/data/camaras_revision_campo.csv", show_col_types = FALSE)
+  revision_memoria_df <- readr::read_csv("/workdir/tests/data/camaras_revision_memoria.csv", show_col_types = FALSE)
+  it("assert columns of summary", {
+    expected_columns <- c("Date", "Number_of_camera_traps", "Effort", "Total_photos", "Total_individuals")
+    obtained_colnames <- colnames(obtained)
+    expect_true(all(expected_columns %in% obtained_colnames))
+  })
+})
 describe("join into one table the info from camera traps", {
   revision_campo_df <- readr::read_csv("/workdir/tests/data/camaras_revision_campo.csv", show_col_types = FALSE)
   revision_memoria_df <- readr::read_csv("/workdir/tests/data/camaras_revision_memoria.csv", show_col_types = FALSE)
