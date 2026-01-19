@@ -1,4 +1,11 @@
 #' @export
+write_cameras_summary <- function(options) {
+  revision_campo_df <- readr::read_csv(options[["cameras-field-check-path"]], show_col_types = FALSE)
+  revision_memoria_df <- readr::read_csv(options[["cameras-memory-check-path"]], show_col_types = FALSE)
+  calculate_cameras_summary(revision_campo_df, revision_memoria_df) |>
+    readr::write_csv(options[["output-path"]])
+}
+#' @export
 add_data_check_column_to_campo <- function(xlsx_name, csv_name, output_path = "/workdir/cameras_extra_revision_campo.csv") {
   raw_data <- readr::read_csv(csv_name, show_col_types = FALSE)
   date_send_data <- extract_date_from_filename(xlsx_name)
