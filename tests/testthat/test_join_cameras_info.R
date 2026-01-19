@@ -3,6 +3,7 @@ describe("calculate cameras summary", {
   revision_memoria_df <- readr::read_csv("/workdir/tests/data/camaras_revision_memoria.csv", show_col_types = FALSE)
   it("assert columns of summary", {
     expected_columns <- c("Date", "Number_of_camera_traps", "Effort", "Total_photos", "Total_individuals")
+    obtained <- calculate_cameras_summary(revision_campo_df, revision_memoria_df)
     obtained_colnames <- colnames(obtained)
     expect_true(all(expected_columns %in% obtained_colnames))
   })
