@@ -4,7 +4,6 @@ describe("calculate cameras summary", {
   it("assert columns of summary", {
     expected_columns <- c("Date", "Number_of_camera_traps", "Effort", "Total_photos", "Total_individuals")
     obtained <- calculate_cameras_summary(revision_campo_df, revision_memoria_df)
-    print(obtained)
     obtained_colnames <- colnames(obtained)
     expect_true(all(expected_columns %in% obtained_colnames))
 

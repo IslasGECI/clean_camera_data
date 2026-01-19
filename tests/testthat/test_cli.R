@@ -8,6 +8,19 @@ describe("Get version of the module", {
 })
 
 describe("Cli for module", {
+  it("write_cameras_summary", {
+    revision_campo_path <- "/workdir/tests/data/camaras_revision_campo.csv"
+    revision_memoria_path <- "/workdir/tests/data/camaras_revision_memoria.csv"
+    output_path <- "/workdir/tests/data/cameras_summary.csv"
+    options <- list(
+      "cameras-field-check-path" = revision_campo_path,
+      "cameras-memory-check-path" = revision_memoria_path,
+      "output-path" = output_path
+    )
+    testtools::if_exist_remove(output_path)
+    write_cameras_summary(options)
+    expect_true(testtools::exist_output_file(output_path))
+  })
   it("write_cameras_last_check", {
     csv_name <- "/workdir/tests/data/cameras_extra_revision_campo_with_coordinates.csv"
     output_path <- "/workdir/tests/data/cameras_last_check.csv"
