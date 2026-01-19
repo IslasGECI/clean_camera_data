@@ -1,7 +1,11 @@
 calculate_cameras_summary <- function(revision_campo_df, revision_memoria_df) {
   joined_cameras_info <- join_cameras_info(revision_campo_df, revision_memoria_df)
-  get_cameras_effort(joined_cameras_info) |>
-    dplyr::mutate(Date = Fecha_envio_datos, Number_of_camera_traps = 1, Effort = effort, Total_photos = Fotos_capturadas, Total_individuals = Individuos_capturados) |>
+  summary_df <- get_cameras_effort(joined_cameras_info) |>
+    dplyr::group_by(Fecha_envio_datos) |>
+    dplyr::summarise(Number_of_camera_traps = dplyr::n_distinct(ID_camara_trampa), Effort = sum(effort), Total_photos = sum(Fotos_capturadas), Total_individuals = sum(Individuos_capturados)) |>
+    dplyr::ungroup()
+  summary_df |>
+    dplyr::mutate(Date = Fecha_envio_datos) |>
     dplyr::select(c("Date", "Number_of_camera_traps", "Effort", "Total_photos", "Total_individuals"))
 }
 
