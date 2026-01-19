@@ -6,6 +6,9 @@ describe("calculate cameras summary", {
     obtained <- calculate_cameras_summary(revision_campo_df, revision_memoria_df)
     obtained_colnames <- colnames(obtained)
     expect_true(all(expected_columns %in% obtained_colnames))
+
+    expected_nrow <- 1
+    expect_equal(nrow(obtained), expected_nrow)
   })
 })
 describe("join into one table the info from camera traps", {
