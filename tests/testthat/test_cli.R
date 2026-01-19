@@ -13,8 +13,8 @@ describe("Cli for module", {
     revision_memoria_path <- "/workdir/tests/data/camaras_revision_memoria.csv"
     output_path <- "/workdir/tests/data/cameras_summary.csv"
     options <- list(
-      "cameras-field-check-path" = revision_campo_path,
-      "cameras-memory-check-path" = revision_memoria_path,
+      "camera-field-check-path" = revision_campo_path,
+      "camera-memory-check-path" = revision_memoria_path,
       "output-path" = output_path
     )
     testtools::if_exist_remove(output_path)

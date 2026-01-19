@@ -1,7 +1,7 @@
 #' @export
 write_cameras_summary <- function(options) {
-  revision_campo_df <- readr::read_csv(options[["cameras-field-check-path"]], show_col_types = FALSE)
-  revision_memoria_df <- readr::read_csv(options[["cameras-memory-check-path"]], show_col_types = FALSE)
+  revision_campo_df <- readr::read_csv(options[["camera-field-check-path"]], show_col_types = FALSE)
+  revision_memoria_df <- readr::read_csv(options[["camera-memory-check-path"]], show_col_types = FALSE)
   calculate_cameras_summary(revision_campo_df, revision_memoria_df) |>
     readr::write_csv(options[["output-path"]])
 }
