@@ -1,3 +1,10 @@
+calculate_cameras_summary <- function(revision_campo_df, revision_memoria_df) {
+  joined_cameras_info <- join_cameras_info(revision_campo_df, revision_memoria_df)
+  get_cameras_effort(joined_cameras_info) |>
+    dplyr::mutate(Date = Fecha_envio_datos, Number_of_camera_traps = 1, Effort = effort, Total_photos = Fotos_capturadas, Total_individuals = Individuos_capturados) |>
+    dplyr::select(c("Date", "Number_of_camera_traps", "Effort", "Total_photos", "Total_individuals"))
+}
+
 join_cameras_info <- function(revision_campo_df, revision_memoria_df) {
   revision_memoria_summary <- get_weekly_pictures_summary(revision_memoria_df)
   dplyr::full_join(revision_campo_df, revision_memoria_summary, by = dplyr::join_by(ID_camara_trampa == ID_camara, Fecha_envio_datos)) |>
