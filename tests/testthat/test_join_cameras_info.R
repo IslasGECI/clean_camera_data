@@ -7,7 +7,7 @@ describe("calculate cameras summary", {
     obtained_colnames <- colnames(obtained)
     expect_true(all(expected_columns %in% obtained_colnames))
 
-    expected_nrow <- 1
+    expected_nrow <- 3
     expect_equal(nrow(obtained), expected_nrow)
   })
 })
