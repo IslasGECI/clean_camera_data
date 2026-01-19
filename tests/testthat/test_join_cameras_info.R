@@ -12,8 +12,21 @@ describe("calculate cameras summary", {
   })
 })
 describe("join into one table the info from camera traps", {
-  revision_campo_df <- readr::read_csv("/workdir/tests/data/camaras_revision_campo.csv", show_col_types = FALSE)
-  revision_memoria_df <- readr::read_csv("/workdir/tests/data/camaras_revision_memoria.csv", show_col_types = FALSE)
+  revision_campo_df <- tibble::tibble(
+    ID_camara_trampa = c("CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA"),
+    Fecha_revision_campo = c("28/Oct/2025", "07/Nov/2025", "24/Nov/2025"),
+    Fecha_envio_datos = c("02/Nov/2025", "09/Nov/2025", "30/Nov/2025"),
+    Revision = c("si", "si", "si"),
+    Estado_camara = c("A", "A", "D"),
+    Estado_memoria = c("MF", "MF", "MF"),
+  )
+  revision_memoria_df <- tibble::tibble(
+    ID_camara = c("CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA"),
+    Fotos_capturadas = c(5504.0, 5505.0, 5506.0, 760.0, 1210.0, 1210.0, 1210.0),
+    Fecha_envio_datos = c("02/Nov/2025", "02/Nov/2025", "02/Nov/2025", "09/Nov/2025", "30/Nov/2025", "30/Nov/2025", "30/Nov/2025"),
+    Fecha_captura_foto = c("09/Ago/2025", "23/Oct/2025", "27/Oct/2025", "08/Oct/2025", "24/Nov/2025", "24/Nov/2025", "22/Nov/2025"),
+    Individuos_capturados = c(1.0, 1.0, 1.0, NA, 2.0, 1.0, 1.0),
+  )
   it("preprocess memory check data", {
     obtained <- get_weekly_pictures_summary(revision_memoria_df)
     obtained_first_row <- obtained[1, ]
