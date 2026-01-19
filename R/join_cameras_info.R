@@ -1,6 +1,5 @@
 calculate_cameras_summary <- function(revision_campo_df, revision_memoria_df) {
   joined_cameras_info <- revision_campo_df |>
-    dplyr::filter(Revision == "si") |>
     join_cameras_info(revision_memoria_df)
   summary_df <- get_cameras_effort(joined_cameras_info) |>
     summarise_cameras_info()
@@ -15,8 +14,9 @@ summarise_cameras_info <- function(joined_cameras_with_effort) {
     dplyr::ungroup()
 }
 join_cameras_info <- function(revision_campo_df, revision_memoria_df) {
+  revision_campo_filtered <- dplyr::filter(revision_campo_df, Revision == "si")
   revision_memoria_summary <- get_weekly_pictures_summary(revision_memoria_df)
-  dplyr::full_join(revision_campo_df, revision_memoria_summary, by = dplyr::join_by(ID_camara_trampa == ID_camara, Fecha_envio_datos)) |>
+  dplyr::full_join(revision_campo_filtered, revision_memoria_summary, by = dplyr::join_by(ID_camara_trampa == ID_camara, Fecha_envio_datos)) |>
     dplyr::select(c("ID_camara_trampa", "Fotos_capturadas", "Fecha_envio_datos", "Fecha_revision_campo", "Individuos_capturados", "Estado_camara"))
 }
 
