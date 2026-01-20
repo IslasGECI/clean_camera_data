@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.3.1] - 2026-01-20
+### Fixed
+- For function `calculate_cameras_summary()` fix NA values on columns `Total_individuals`, `Effort` and `Total_photos`.
+
 ## [0.3.0] - 2026-01-19
 ### Added
 - Cli function `write_cameras_summary()` to get a summary of the installed cameras.
