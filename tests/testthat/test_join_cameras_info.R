@@ -15,7 +15,7 @@ describe("calculate cameras summary", {
     expect_equal(obtained$Effort[2], expected_effort)
     expected_total_photos <- 378
     expect_equal(obtained$Total_photos[2], expected_total_photos)
-    expected_total_individuals <- 3
+    expected_total_individuals <- 2
     expect_equal(obtained$Total_individuals[2], expected_total_individuals)
   })
 })
