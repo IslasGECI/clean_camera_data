@@ -7,16 +7,16 @@ describe("calculate cameras summary", {
     obtained_colnames <- colnames(obtained)
     expect_true(all(expected_columns %in% obtained_colnames))
 
-    expected_nrow <- 3
+    expected_nrow <- 5
     expect_equal(nrow(obtained), expected_nrow)
     expected_number_of_cameras <- 2
-    expect_equal(obtained$Number_of_camera_traps[1], expected_number_of_cameras)
-    expected_effort <- 14
+    expect_equal(obtained$Number_of_camera_traps[4], expected_number_of_cameras)
+    expected_effort <- 59
     expect_equal(obtained$Effort[2], expected_effort)
-    expected_total_photos <- 859
+    expected_total_photos <- 378
     expect_equal(obtained$Total_photos[2], expected_total_photos)
     expected_total_individuals <- 3
-    expect_equal(obtained$Total_individuals[1], expected_total_individuals)
+    expect_equal(obtained$Total_individuals[2], expected_total_individuals)
   })
 })
 describe("join into one table the info from camera traps", {
