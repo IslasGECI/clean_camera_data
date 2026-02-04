@@ -33,6 +33,9 @@ describe("fill missing weeks with sunday date", {
   it("check there is all sunday", {
     expected_number_of_weeks <- 7
     expect_equal(nrow(obtained), expected_number_of_weeks)
+
+    expected_camera_status < c("A", "A", "A", "A", "D", "A", "A")
+    expect_equal(obtained$Estado_camara, expected_camera_status)
   })
 })
 
