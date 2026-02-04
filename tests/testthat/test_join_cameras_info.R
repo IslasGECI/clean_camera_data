@@ -71,13 +71,13 @@ describe("join into one table the info from camera traps", {
   it("calculate effort from joined table", {
     joined_cameras_info <- tibble::tibble(
       ID_camara_trampa = rep("CA-03-012-CA", 3),
-      Fotos_capturadas = c(5504, 760, 1210),
-      Fecha_envio_datos = c("09/Nov/2025", "02/Nov/2025", "30/Nov/2025"),
-      Fecha_revision_campo = c("07/Nov/2025", "28/Oct/2025", "24/Nov/2025"),
-      Individuos_capturados = c(3, 0, 4),
+      Fotos_capturadas = c(760, 5504, 1210),
+      Fecha_envio_datos = lubridate::ymd(c("2025-11-02", "2025-11-09", "2025-11-30")),
+      Fecha_revision_campo = lubridate::ymd(c("2025-10-28", "2025-11-07", "2025-11-24")),
+      Individuos_capturados = c(0, 3, 4),
       Estado_camara = c("A", "A", "D")
     )
-    obtained <- get_cameras_effort(joined_cameras_info)
+    obtained <- xxget_cameras_effort(joined_cameras_info)
     obtained_colnames <- colnames(obtained)
     expect_true("effort" %in% obtained_colnames)
     obtained_second_row <- obtained[2, ]

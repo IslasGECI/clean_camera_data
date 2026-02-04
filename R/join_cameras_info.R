@@ -35,6 +35,11 @@ join_cameras_info <- function(revision_campo_df, revision_memoria_df) {
 get_cameras_effort <- function(joined_cameras_info) {
   joined_cameras_info |>
     transform_spanish_dates_to_iso_format() |>
+    xxget_cameras_effort()
+}
+
+xxget_cameras_effort <- function(joined_cameras_info) {
+  joined_cameras_info |>
     dplyr::arrange(ID_camara_trampa, Fecha_envio_datos) |>
     dplyr::group_by(ID_camara_trampa) |>
     dplyr::mutate(effort = dplyr::case_when(
