@@ -11,7 +11,7 @@ describe("calculate cameras summary", {
     expect_equal(nrow(obtained), expected_nrow)
     expected_number_of_cameras <- 2
     expect_equal(obtained$Number_of_camera_traps[4], expected_number_of_cameras)
-    expected_effort <- 59
+    expected_effort <- 63
     expect_equal(obtained$Effort[2], expected_effort)
     expected_total_photos <- 378
     expect_equal(obtained$Total_photos[2], expected_total_photos)
@@ -19,24 +19,32 @@ describe("calculate cameras summary", {
     expect_equal(obtained$Total_individuals[2], expected_total_individuals)
   })
 })
-revision_campo_one_id <- tibble::tibble(
-  ID_camara_trampa = c("CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA"),
-  Fecha_revision_campo = c("28/Oct/2025", "07/Nov/2025", "24/Nov/2025"),
-  Fecha_envio_datos = c("02/Nov/2025", "09/Nov/2025", "30/Nov/2025"),
-  Revision = c("si", "si", "si"),
-  Estado_camara = c("A", "A", "D"),
-  Estado_memoria = c("MF", "MF", "MF"),
-)
 
 describe("fill missing weeks with sunday date", {
-  obtained <- fill_missing_sundays(revision_campo_one_id)
+  revision_campo_two_id <- tibble::tibble(
+    ID_camara_trampa = c("CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA", "CA-XX-XX-CA", "CA-XX-XX-CA"),
+    Fecha_revision_campo = c("28/Oct/2025", "07/Nov/2025", "24/Nov/2025", "15/Nov/2025", "22/Nov/2025"),
+    Fecha_envio_datos = c("02/Nov/2025", "09/Nov/2025", "30/Nov/2025", "16/Nov/2025", "23/Nov/2025"),
+    Revision = c("si", "si", "si", "si", "si"),
+    Estado_camara = c("A", "A", "D", "A", "A"),
+    Estado_memoria = c("MF", "MF", "MF", "MF", "MF"),
+  )
+  obtained <- fill_missing_sundays(revision_campo_two_id)
   it("check there is all sunday", {
-    expected_number_of_weeks <- 5
+    expected_number_of_weeks <- 7
     expect_equal(nrow(obtained), expected_number_of_weeks)
   })
 })
 
 describe("join into one table the info from camera traps", {
+  revision_campo_one_id <- tibble::tibble(
+    ID_camara_trampa = c("CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA"),
+    Fecha_revision_campo = c("28/Oct/2025", "07/Nov/2025", "24/Nov/2025"),
+    Fecha_envio_datos = c("02/Nov/2025", "09/Nov/2025", "30/Nov/2025"),
+    Revision = c("si", "si", "si"),
+    Estado_camara = c("A", "A", "D"),
+    Estado_memoria = c("MF", "MF", "MF"),
+  )
   revision_memoria_df <- tibble::tibble(
     ID_camara = c("CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA"),
     Fotos_capturadas = c(5504.0, 5505.0, 5506.0, 760.0, 1210.0, 1210.0, 1210.0),
