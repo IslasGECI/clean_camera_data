@@ -90,12 +90,12 @@ describe("join into one table the info from camera traps", {
     joined_cameras_info_with_two_ids <- tibble::tibble(
       ID_camara_trampa = c("CA-03-013-CA", rep("CA-03-012-CA", 5)),
       Fotos_capturadas = c(123, 5504, 760, 1210, NA, NA),
-      Fecha_envio_datos = c("30/Nov/2025", "09/Nov/2025", "02/Nov/2025", "30/Nov/2025", "16/Nov/2025", "23/Nov/2025"),
-      Fecha_revision_campo = c("24/Nov/2025", "07/Nov/2025", "28/Oct/2025", "24/Nov/2025", NA, NA),
+      Fecha_envio_datos = lubridate::ymd(c("2025-11-30", "2025-11-09", "2025-11-02", "2025-11-30", "2025-11-16", "2025-11-23")),
+      Fecha_revision_campo = lubridate::ymd(c("2025-11-24", "2025-11-07", "2025-10-28", "2025-11-24", NA, NA)),
       Individuos_capturados = c(5, 3, 0, 4, NA, NA),
       Estado_camara = c("A", "A", "A", "D", "A", "A")
     )
-    obtained <- get_cameras_effort(joined_cameras_info_with_two_ids)
+    obtained <- xxget_cameras_effort(joined_cameras_info_with_two_ids)
     obtained_number_of_weeks <- nrow(obtained)
     expected_number_of_weeks <- 6
     expect_equal(obtained_number_of_weeks, expected_number_of_weeks)
