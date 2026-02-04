@@ -40,8 +40,8 @@ describe("join into one table the info from camera traps", {
   revision_memoria_df <- tibble::tibble(
     ID_camara = c("CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA"),
     Fotos_capturadas = c(5504.0, 5505.0, 5506.0, 760.0, 1210.0, 1210.0, 1210.0),
-    Fecha_envio_datos = c("02/Nov/2025", "02/Nov/2025", "02/Nov/2025", "09/Nov/2025", "30/Nov/2025", "30/Nov/2025", "30/Nov/2025"),
-    Fecha_captura_foto = c("09/Ago/2025", "23/Oct/2025", "27/Oct/2025", "08/Oct/2025", "24/Nov/2025", "24/Nov/2025", "22/Nov/2025"),
+    Fecha_envio_datos = c("2025-11-02", "2025-11-02", "2025-11-02", "2025-11-09", "2025-11-30", "2025-11-30", "2025-11-30"),
+    Fecha_captura_foto = c("2025-08-09", "2025-10-23", "2025-10-27", "08/Oct/2025-10-08", "2025-11-24", "2025-11-24", "2025-11-22"),
     Individuos_capturados = c(1.0, 1.0, 1.0, NA, 2.0, 1.0, 1.0),
   )
   it("preprocess memory check data", {
@@ -51,13 +51,22 @@ describe("join into one table the info from camera traps", {
     expect_equal(obtained_first_row$Individuos_capturados, 3)
   })
   it("assert columns of joined", {
-    obtained <- join_cameras_info(revision_campo_one_id, revision_memoria_df)
+    filled_revision_campo_one_id <- tibble::tibble(
+      ID_camara_trampa = rep("CA-03-012-CA", 5),
+      Fecha_revision_campo = c("2025-10-28", "2025-11-07", NA, NA, "2025-11-24"),
+      Fecha_envio_datos = c("2025-11-02", "2025-11-09", "2025-11-16", "2025-11-23", "2025-11-30"),
+      Revision = c("si", "si", NA, NA, "si"),
+      Estado_camara = c("A", "A", NA, NA, "D"),
+      Estado_memoria = c("MF", "MF", NA, NA, "MF"),
+    )
+    obtained <- join_cameras_info(filled_revision_campo_one_id, revision_memoria_df)
     expected_columns <- c("ID_camara_trampa", "Fotos_capturadas", "Fecha_envio_datos", "Fecha_revision_campo", "Individuos_capturados", "Estado_camara")
     obtained_colnames <- colnames(obtained)
     expect_true(all(expected_columns %in% obtained_colnames))
     expect_equal(length(expected_columns), length(obtained_colnames))
-    expected_nrows <- 3
+    expected_nrows <- 5
     expect_equal(nrow(obtained), expected_nrows)
+    print(obtained)
   })
   it("calculate effort from joined table", {
     joined_cameras_info <- tibble::tibble(
