@@ -1,7 +1,7 @@
 ID_camara_trampa,Zona,Coordenada_Este,Coordenada_Norte,Fecha_revision_campo,Fecha_envio_datos,Responsable_cambio_memoria,Revision,Estado_camara,Estado_memoria,Porcentaje_de_bateria,Observaciones
 CA-01-001-CA,1,375311,3196733,23/Nov/2023,26/Nov/2023,Salvador Figueroa,si,A,MF,46.0,
-CA-01-001-CA,1,375311,3196733,24/Ene/2024,24/Ene/2024,David Cosio,si,A,MF,29.0,
-CA-01-001-ED,1,375242,3196003,24/Ene/2024,24/Ene/2024,Luis Martinez,si,A,NF,32.0,
+CA-01-001-CA,1,375311,3196733,24/Ene/2024,28/Ene/2024,David Cosio,si,A,MF,29.0,
+CA-01-001-ED,1,375242,3196003,24/Ene/2024,28/Ene/2024,Luis Martinez,si,A,NF,32.0,
 CA-03-011-CA,3,376679,3204890,NA,02/Nov/2025,Gonzalo Castaneda,no,NA,NA,NA,
 CA-03-012-CA,3,376679,3204890,28/Oct/2025,02/Nov/2025,Gonzalo Castaneda,si,A,MF,48.0,
 CA-03-013-CA,3,376679,3204890,28/Oct/2025,02/Nov/2025,Gonzalo Castaneda,si,A,MF,80.0,
