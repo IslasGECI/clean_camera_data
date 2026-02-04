@@ -6,23 +6,12 @@ calculate_cameras_summary <- function(revision_campo_df, revision_memoria_df) {
 }
 
 fill_missing_sundays <- function(revision_campo_df) {
-  revision_campo_df <- revision_campo_df |>
+  revision_campo_complete <- revision_campo_df |>
     transform_spanish_dates_to_iso_format() |>
-    dplyr::arrange(ID_camara_trampa, Fecha_envio_datos)
-  all_sundays <- seq(
-    from = min(revision_campo_df$Fecha_envio_datos),
-    to = max(revision_campo_df$Fecha_envio_datos),
-    by = "week"
-  )
-  all_combinations <- expand.grid(
-    ID_camara_trampa = unique(revision_campo_df$ID_camara_trampa),
-    Fecha_envio_datos = all_sundays
-  )
-  revision_campo_complete <- dplyr::left_join(
-    all_combinations,
-    revision_campo_df,
-    by = c("ID_camara_trampa", "Fecha_envio_datos")
-  ) |>
+    dplyr::arrange(ID_camara_trampa, Fecha_envio_datos) |>
+    dplyr::group_by(ID_camara_trampa) |>
+    tidyr::complete(Fecha_envio_datos = seq.Date(min(Fecha_envio_datos, na.rm = TRUE), max(Fecha_envio_datos, na.rm = TRUE), by = "1 week")) |>
+    dplyr::ungroup() |>
     dplyr::arrange(ID_camara_trampa, Fecha_envio_datos)
   revision_campo_complete
 }
