@@ -19,15 +19,24 @@ describe("calculate cameras summary", {
     expect_equal(obtained$Total_individuals[2], expected_total_individuals)
   })
 })
+revision_campo_one_id <- tibble::tibble(
+  ID_camara_trampa = c("CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA"),
+  Fecha_revision_campo = c("28/Oct/2025", "07/Nov/2025", "24/Nov/2025"),
+  Fecha_envio_datos = c("02/Nov/2025", "09/Nov/2025", "30/Nov/2025"),
+  Revision = c("si", "si", "si"),
+  Estado_camara = c("A", "A", "D"),
+  Estado_memoria = c("MF", "MF", "MF"),
+)
+
+describe("fill missing weeks with sunday date", {
+  obtained <- fill_missing_sundays(revision_campo_one_id)
+  it("check there is all sunday", {
+    expected_number_of_weeks <- 5
+    expect_equal(nrow(obtained), expected_number_of_weeks)
+  })
+})
+
 describe("join into one table the info from camera traps", {
-  revision_campo_df <- tibble::tibble(
-    ID_camara_trampa = c("CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA"),
-    Fecha_revision_campo = c("28/Oct/2025", "07/Nov/2025", "24/Nov/2025"),
-    Fecha_envio_datos = c("02/Nov/2025", "09/Nov/2025", "30/Nov/2025"),
-    Revision = c("si", "si", "si"),
-    Estado_camara = c("A", "A", "D"),
-    Estado_memoria = c("MF", "MF", "MF"),
-  )
   revision_memoria_df <- tibble::tibble(
     ID_camara = c("CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA"),
     Fotos_capturadas = c(5504.0, 5505.0, 5506.0, 760.0, 1210.0, 1210.0, 1210.0),
@@ -42,7 +51,7 @@ describe("join into one table the info from camera traps", {
     expect_equal(obtained_first_row$Individuos_capturados, 3)
   })
   it("assert columns of joined", {
-    obtained <- join_cameras_info(revision_campo_df, revision_memoria_df)
+    obtained <- join_cameras_info(revision_campo_one_id, revision_memoria_df)
     expected_columns <- c("ID_camara_trampa", "Fotos_capturadas", "Fecha_envio_datos", "Fecha_revision_campo", "Individuos_capturados", "Estado_camara")
     obtained_colnames <- colnames(obtained)
     expect_true(all(expected_columns %in% obtained_colnames))
