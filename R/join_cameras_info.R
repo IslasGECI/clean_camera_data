@@ -4,6 +4,29 @@ calculate_cameras_summary <- function(revision_campo_df, revision_memoria_df) {
     summarise_cameras_info() |>
     dplyr::rename(Date = Fecha_envio_datos)
 }
+
+fill_missing_sundays <- function(revision_campo_df) {
+  revision_campo_df <- revision_campo_df |>
+    transform_spanish_dates_to_iso_format() |>
+    dplyr::arrange(ID_camara_trampa, Fecha_envio_datos)
+  all_sundays <- seq(
+    from = min(revision_campo_df$Fecha_envio_datos),
+    to = max(revision_campo_df$Fecha_envio_datos),
+    by = "week"
+  )
+  all_combinations <- expand.grid(
+    ID_camara_trampa = unique(revision_campo_df$ID_camara_trampa),
+    Fecha_envio_datos = all_sundays
+  )
+  revision_campo_complete <- dplyr::left_join(
+    all_combinations,
+    revision_campo_df,
+    by = c("ID_camara_trampa", "Fecha_envio_datos")
+  ) |>
+    dplyr::arrange(ID_camara_trampa, Fecha_envio_datos)
+  revision_campo_complete
+}
+
 join_cameras_info <- function(revision_campo_df, revision_memoria_df) {
   revision_campo_filtered <- dplyr::filter(revision_campo_df, Revision == "si")
   revision_memoria_summary <- get_weekly_pictures_summary(revision_memoria_df)
