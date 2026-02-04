@@ -13,7 +13,9 @@ fill_missing_sundays <- function(revision_campo_df) {
     tidyr::complete(Fecha_envio_datos = seq.Date(min(Fecha_envio_datos, na.rm = TRUE), max(Fecha_envio_datos, na.rm = TRUE), by = "1 week")) |>
     dplyr::ungroup() |>
     dplyr::arrange(ID_camara_trampa, Fecha_envio_datos)
-  revision_campo_complete
+  revision_campo_complete |>
+    dplyr::group_by(ID_camara_trampa) |>
+    tidyr::fill(Estado_camara)
 }
 
 join_cameras_info <- function(revision_campo_df, revision_memoria_df) {
