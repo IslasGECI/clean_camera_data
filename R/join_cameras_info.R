@@ -1,6 +1,7 @@
 calculate_cameras_summary <- function(revision_campo_df, revision_memoria_df) {
-  revision_campo_cleaned <- dplyr::filter(revision_campo_df, Revision == "si")
-  filled_revision_campo <- fill_missing_sundays(revision_campo_cleaned)
+  revision_campo_cleaned <- dplyr::filter(revision_campo_df, Revision == "si") |>
+    transform_spanish_dates_to_iso_format()
+  filled_revision_campo <- xxfill_missing_sundays(revision_campo_cleaned)
   revision_memoria_iso <- convert_spanish_date_column_to_iso(revision_memoria_df, Fecha_envio_datos)
   joined_cameras_info <- join_cameras_info(filled_revision_campo, revision_memoria_iso)
   summary_df <- get_cameras_effort(joined_cameras_info) |>
