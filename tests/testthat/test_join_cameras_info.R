@@ -41,6 +41,15 @@ describe("fill missing weeks with sunday date", {
   })
 })
 
+describe("Start dates in next sunday", {
+  it("Shift date", {
+    data <- tibble::tibble(Fecha_envio_datos = lubridate::ymd("2026-02-05"))
+    obtained <- shift_to_next_sunday(data)
+    expected_date <- lubridate::ymd("2026-02-08")
+    expect_equal(obtained$Fecha_envio_datos[1], expected_date)
+  })
+})
+
 describe("join into one table the info from camera traps", {
   revision_campo_one_id <- tibble::tibble(
     ID_camara_trampa = c("CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA"),
