@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.3.2] - 2026-02-05
 ### Fixed
 - The CLI function `write_cameras_summary()` now distributes effort on a weekly basis.
+- The CLI function `write_cameras_summary()` can process the removed cameras. Does not count in effort and cameras installed, but counts the photos and the individuals detected.
 
 ## [0.3.1] - 2026-01-20
 ### Fixed
