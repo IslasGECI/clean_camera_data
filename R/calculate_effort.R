@@ -18,13 +18,13 @@ fill_ocassions <- function(effort_data) {
 get_session <- function(raw_data_with_date) {
   months <- lubridate::month(raw_data_with_date$Date)
   years <- lubridate::year(raw_data_with_date$Date)
-  sessions <- raw_data_with_date %>%
+  sessions <- raw_data_with_date |>
     dplyr::mutate(Session = paste(years, months, sep = "-"))
   return(sessions)
 }
 get_ocassion <- function(raw_data_with_date) {
   ocassions <- sapply(raw_data_with_date$Date, get_week_of_year_from_date, USE.NAMES = FALSE)
-  trapping_hunting_with_ocassions <- raw_data_with_date %>%
+  trapping_hunting_with_ocassions <- raw_data_with_date |>
     dplyr::mutate(Ocassion = ocassions)
   return(trapping_hunting_with_ocassions)
 }
