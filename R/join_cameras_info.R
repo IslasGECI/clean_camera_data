@@ -60,12 +60,11 @@ get_weekly_pictures_summary <- function(revision_memoria_df) {
 transform_spanish_dates_to_iso_format <- function(joined_cameras_info) {
   joined_cameras_info |>
     convert_spanish_date_column_to_iso(Fecha_envio_datos) |>
-    convert_spanish_date_column_to_iso(Fecha_revision_campo) |>
-    dplyr::select(-Fecha)
+    convert_spanish_date_column_to_iso(Fecha_revision_campo)
 }
 convert_spanish_date_column_to_iso <- function(data, date_column) {
   data |>
-    dplyr::mutate(Fecha = {{ date_column }}) |>
+    dplyr::rename(Fecha = {{ date_column }}) |>
     gecitools::convert_spanish_dates() |>
-    dplyr::mutate({{ date_column }} := Fecha)
+    dplyr::rename({{ date_column }} := Fecha)
 }
