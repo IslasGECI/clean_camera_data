@@ -7,10 +7,10 @@ describe("calculate cameras summary", {
     obtained_colnames <- colnames(obtained)
     expect_true(all(expected_columns %in% obtained_colnames))
 
-    expected_weeks_with_cameras <- 8
+    expected_weeks_with_cameras <- 9
     expect_equal(nrow(obtained), expected_weeks_with_cameras)
     expected_cameras_in_november_second <- 2
-    expect_equal(obtained$Number_of_camera_traps[4], expected_cameras_in_november_second)
+    expect_equal(obtained$Number_of_camera_traps[5], expected_cameras_in_november_second)
 
     october_nineteen_row <- 3
     expected_effort <- 7
