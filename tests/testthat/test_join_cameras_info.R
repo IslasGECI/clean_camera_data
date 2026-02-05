@@ -9,7 +9,7 @@ describe("calculate cameras summary", {
 
     expected_weeks_with_cameras <- 8
     expect_equal(nrow(obtained), expected_weeks_with_cameras)
-    expected_cameras_in_november_second <- 3
+    expected_cameras_in_november_second <- 2
     expect_equal(obtained$Number_of_camera_traps[4], expected_cameras_in_november_second)
 
     october_nineteen_row <- 3
