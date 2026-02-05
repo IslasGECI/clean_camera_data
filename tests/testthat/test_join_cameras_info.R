@@ -24,19 +24,19 @@ describe("calculate cameras summary", {
 
 describe("fill missing weeks with sunday date", {
   revision_campo_two_id <- tibble::tibble(
-    ID_camara_trampa = c("CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA", "CA-XX-XX-CA", "CA-XX-XX-CA"),
-    Fecha_revision_campo = lubridate::ymd(c("2025-10-28", "2025-11-07", "2025-11-24", "2025-11-15", "2025-11-22")),
-    Fecha_envio_datos = lubridate::ymd(c("2025-11-02", "2025-11-09", "2025-11-30", "2025-11-16", "2025-11-23")),
-    Revision = c("si", "si", "si", "si", "si"),
-    Estado_camara = c("A", "A", "D", "A", "A"),
-    Estado_memoria = c("MF", "MF", "MF", "MF", "MF"),
+    ID_camara_trampa = c("CA-Removed", "CA-03-012-CA", "CA-03-012-CA", "CA-03-012-CA", "CA-XX-XX-CA", "CA-XX-XX-CA", "CA-Removed"),
+    Fecha_revision_campo = lubridate::ymd(c("2025-10-28", "2025-10-28", "2025-11-07", "2025-11-24", "2025-11-15", "2025-11-22", "2025-11-30")),
+    Fecha_envio_datos = lubridate::ymd(c("2025-11-02", "2025-11-02", "2025-11-09", "2025-11-30", "2025-11-16", "2025-11-23", "2025-11-30")),
+    Revision = c("si", "si", "si", "si", "si", "si", "si"),
+    Estado_camara = c("R", "A", "A", "D", "A", "A", "A"),
+    Estado_memoria = c("NF", "MF", "MF", "MF", "MF", "MF", "MF"),
   )
   obtained <- fill_missing_sundays(revision_campo_two_id)
   it("check there is all sunday", {
-    expected_number_of_weeks <- 7
+    expected_number_of_weeks <- 8
     expect_equal(nrow(obtained), expected_number_of_weeks)
 
-    expected_camera_status <- c("A", "A", "A", "A", "D", "A", "A")
+    expected_camera_status <- c("A", "A", "A", "A", "D", "A", "A", "A")
     expect_equal(obtained$Estado_camara, expected_camera_status)
   })
 })
