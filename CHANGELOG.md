@@ -15,29 +15,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.3.2] - 2026-02-05
+### Fixed
+- The CLI function `write_cameras_summary()` now distributes effort on a weekly basis.
+
 ## [0.3.1] - 2026-01-20
 ### Fixed
 - For function `calculate_cameras_summary()` fix NA values on columns `Total_individuals`, `Effort` and `Total_photos`.
 
 ## [0.3.0] - 2026-01-19
 ### Added
-- Cli function `write_cameras_summary()` to get a summary of the installed cameras.
+- CLI function `write_cameras_summary()` to get a summary of the installed cameras.
 
 ### Changed
-- Cli function `write_camera_info()` arrange list by ID
+- CLI function `write_camera_info()` arrange list by ID
 
 ## [0.2.0] - 2024-03-04
 
 ### Added
-- Cli function `write_cameras_last_check()`
+- CLI function `write_cameras_last_check()`
 
 ### Changed
-- Cli function `write_camera_info()` does not give `Ultima_revision` column
+- CLI function `write_camera_info()` does not give `Ultima_revision` column
 
 ## [0.1.0] - 2024-01-29
 
 ### Added
-- Cli function `write_camera_info()`
+- CLI function `write_camera_info()`
 
 [0.2.0]: https://github.com/IslasGECI/clean_camera_data/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/IslasGECI/clean_camera_data/compare/v0.1.0
