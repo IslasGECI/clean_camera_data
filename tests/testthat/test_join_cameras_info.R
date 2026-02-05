@@ -31,7 +31,7 @@ describe("fill missing weeks with sunday date", {
     Estado_camara = c("A", "A", "D", "A", "A"),
     Estado_memoria = c("MF", "MF", "MF", "MF", "MF"),
   )
-  obtained <- xxfill_missing_sundays(revision_campo_two_id)
+  obtained <- fill_missing_sundays(revision_campo_two_id)
   it("check there is all sunday", {
     expected_number_of_weeks <- 7
     expect_equal(nrow(obtained), expected_number_of_weeks)
