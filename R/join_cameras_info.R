@@ -1,6 +1,11 @@
 calculate_cameras_summary <- function(revision_campo_df, revision_memoria_df) {
-  joined_cameras_info <- join_cameras_info(revision_campo_df, revision_memoria_df)
-  summary_df <- get_cameras_effort(joined_cameras_info) |>
+  filled_revision_campo <- fill_missing_sundays(revision_campo_df)
+  revision_memoria_iso <- revision_memoria_df |>
+    dplyr::mutate(Fecha = Fecha_envio_datos) |>
+    gecitools::convert_spanish_dates() |>
+    dplyr::mutate(Fecha_envio_datos = Fecha)
+  joined_cameras_info <- join_cameras_info(filled_revision_campo, revision_memoria_iso)
+  summary_df <- xxget_cameras_effort(joined_cameras_info) |>
     summarise_cameras_info() |>
     dplyr::rename(Date = Fecha_envio_datos)
 }
