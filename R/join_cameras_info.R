@@ -20,7 +20,8 @@ fill_missing_sundays <- function(revision_campo_df) {
     dplyr::arrange(ID_camara_trampa, Fecha_envio_datos)
   revision_campo_complete |>
     dplyr::group_by(ID_camara_trampa) |>
-    tidyr::fill(Estado_camara)
+    tidyr::fill(Estado_camara) |>
+    dplyr::filter(Estado_camara != "R")
 }
 
 
