@@ -11,6 +11,11 @@ calculate_cameras_summary <- function(revision_campo_df, revision_memoria_df) {
     dplyr::rename(Date = Fecha_envio_datos)
 }
 
+shift_to_next_sunday <- function(dataframe) {
+  dataframe |>
+    dplyr::mutate(Fecha_envio_datos = Fecha_envio_datos + lubridate::days(7 - lubridate::wday(Fecha_envio_datos, week_start = 1)))
+}
+
 fill_missing_sundays <- function(revision_campo_df) {
   revision_campo_complete <- revision_campo_df |>
     dplyr::arrange(ID_camara_trampa, Fecha_envio_datos) |>
