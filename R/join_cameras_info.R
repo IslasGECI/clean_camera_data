@@ -5,7 +5,7 @@ calculate_cameras_summary <- function(revision_campo_df, revision_memoria_df) {
     gecitools::convert_spanish_dates() |>
     dplyr::mutate(Fecha_envio_datos = Fecha)
   joined_cameras_info <- join_cameras_info(filled_revision_campo, revision_memoria_iso)
-  summary_df <- xxget_cameras_effort(joined_cameras_info) |>
+  summary_df <- get_cameras_effort(joined_cameras_info) |>
     summarise_cameras_info() |>
     dplyr::rename(Date = Fecha_envio_datos)
 }
@@ -28,13 +28,8 @@ join_cameras_info <- function(revision_campo_df, revision_memoria_df) {
   dplyr::full_join(revision_campo_df, revision_memoria_summary, by = dplyr::join_by(ID_camara_trampa == ID_camara, Fecha_envio_datos)) |>
     dplyr::select(c("ID_camara_trampa", "Fotos_capturadas", "Fecha_envio_datos", "Fecha_revision_campo", "Individuos_capturados", "Estado_camara"))
 }
-get_cameras_effort <- function(joined_cameras_info) {
-  joined_cameras_info |>
-    transform_spanish_dates_to_iso_format() |>
-    xxget_cameras_effort()
-}
 
-xxget_cameras_effort <- function(joined_cameras_info) {
+get_cameras_effort <- function(joined_cameras_info) {
   joined_cameras_info |>
     dplyr::arrange(ID_camara_trampa, Fecha_envio_datos) |>
     dplyr::group_by(ID_camara_trampa) |>

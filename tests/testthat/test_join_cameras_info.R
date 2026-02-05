@@ -89,7 +89,7 @@ describe("join into one table the info from camera traps", {
       Individuos_capturados = c(0, 3, 4),
       Estado_camara = c("A", "A", "D")
     )
-    obtained <- xxget_cameras_effort(joined_cameras_info)
+    obtained <- get_cameras_effort(joined_cameras_info)
     obtained_colnames <- colnames(obtained)
     expect_true("effort" %in% obtained_colnames)
     obtained_second_row <- obtained[2, ]
@@ -107,7 +107,7 @@ describe("join into one table the info from camera traps", {
       Individuos_capturados = c(5, 3, 0, 4, NA, NA),
       Estado_camara = c("A", "A", "A", "D", "A", "A")
     )
-    obtained <- xxget_cameras_effort(joined_cameras_info_with_two_ids)
+    obtained <- get_cameras_effort(joined_cameras_info_with_two_ids)
     obtained_number_of_weeks <- nrow(obtained)
     expected_number_of_weeks <- 6
     expect_equal(obtained_number_of_weeks, expected_number_of_weeks)
