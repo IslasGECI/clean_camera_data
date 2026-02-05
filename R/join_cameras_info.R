@@ -8,6 +8,19 @@ calculate_cameras_summary <- function(revision_campo_df, revision_memoria_df) {
     dplyr::rename(Date = Fecha_envio_datos)
 }
 
+xxfill_missing_sundays <- function(revision_campo_df) {
+  revision_campo_complete <- revision_campo_df |>
+    dplyr::arrange(ID_camara_trampa, Fecha_envio_datos) |>
+    dplyr::group_by(ID_camara_trampa) |>
+    tidyr::complete(Fecha_envio_datos = seq.Date(min(Fecha_envio_datos, na.rm = TRUE), max(Fecha_envio_datos, na.rm = TRUE), by = "1 week")) |>
+    dplyr::ungroup() |>
+    dplyr::arrange(ID_camara_trampa, Fecha_envio_datos)
+  revision_campo_complete |>
+    dplyr::group_by(ID_camara_trampa) |>
+    tidyr::fill(Estado_camara)
+}
+
+
 fill_missing_sundays <- function(revision_campo_df) {
   revision_campo_complete <- revision_campo_df |>
     transform_spanish_dates_to_iso_format() |>
