@@ -19,6 +19,10 @@ describe("calculate cameras summary", {
     expect_equal(obtained$Total_photos[october_nineteen_row], expected_total_photos)
     expected_total_individuals <- 2
     expect_equal(obtained$Total_individuals[october_nineteen_row], expected_total_individuals)
+
+    october_fourth_row <- 3
+    expected_total_photos <- 351
+    expect_equal(obtained$Total_photos[october_fourth_row], expected_total_photos)
   })
 })
 
