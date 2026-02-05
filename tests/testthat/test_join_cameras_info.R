@@ -7,16 +7,18 @@ describe("calculate cameras summary", {
     obtained_colnames <- colnames(obtained)
     expect_true(all(expected_columns %in% obtained_colnames))
 
-    expected_nrow <- 5
-    expect_equal(nrow(obtained), expected_nrow)
-    expected_number_of_cameras <- 2
-    expect_equal(obtained$Number_of_camera_traps[4], expected_number_of_cameras)
-    expected_effort <- 14
-    expect_equal(obtained$Effort[2], expected_effort)
+    expected_weeks_with_cameras <- 8
+    expect_equal(nrow(obtained), expected_weeks_with_cameras)
+    expected_cameras_in_november_second <- 3
+    expect_equal(obtained$Number_of_camera_traps[4], expected_cameras_in_november_second)
+
+    october_nineteen_row <- 3
+    expected_effort <- 7
+    expect_equal(obtained$Effort[october_nineteen_row], expected_effort)
     expected_total_photos <- 378
-    expect_equal(obtained$Total_photos[2], expected_total_photos)
+    expect_equal(obtained$Total_photos[october_nineteen_row], expected_total_photos)
     expected_total_individuals <- 2
-    expect_equal(obtained$Total_individuals[2], expected_total_individuals)
+    expect_equal(obtained$Total_individuals[october_nineteen_row], expected_total_individuals)
   })
 })
 
