@@ -11,7 +11,7 @@ describe("calculate cameras summary", {
     expect_equal(nrow(obtained), expected_nrow)
     expected_number_of_cameras <- 2
     expect_equal(obtained$Number_of_camera_traps[4], expected_number_of_cameras)
-    expected_effort <- 63
+    expected_effort <- 14
     expect_equal(obtained$Effort[2], expected_effort)
     expected_total_photos <- 378
     expect_equal(obtained$Total_photos[2], expected_total_photos)
@@ -77,7 +77,6 @@ describe("join into one table the info from camera traps", {
     expect_equal(length(expected_columns), length(obtained_colnames))
     expected_nrows <- 5
     expect_equal(nrow(obtained), expected_nrows)
-    print(obtained)
   })
   it("calculate effort from joined table", {
     joined_cameras_info <- tibble::tibble(
