@@ -1,4 +1,5 @@
 ID_camara_trampa,Zona,Coordenada_Este,Coordenada_Norte,Fecha_revision_campo,Fecha_envio_datos,Responsable_cambio_memoria,Revision,Estado_camara,Estado_memoria,Porcentaje_de_bateria,Observaciones
+CA-Removed,1,375311,3196733,02/Oct/2023,04/Oct/2025,Salvador Figueroa,si,R,NF,46.0,
 CA-01-001-CA,1,375311,3196733,02/Oct/2023,04/Oct/2025,Salvador Figueroa,si,A,MF,46.0,
 CA-01-001-CA,1,375311,3196733,15/Oct/2025,19/Oct/2025,David Cosio,si,A,MF,29.0,
 CA-01-001-ED,1,375242,3196003,15/Oct/2025,19/Oct/2025,Luis Martinez,si,A,NF,32.0,
@@ -8,3 +9,4 @@ CA-03-013-CA,3,376679,3204890,28/Oct/2025,02/Nov/2025,Gonzalo Castaneda,si,A,MF,
 CA-03-012-CA,3,376679,3204890,07/Nov/2025,09/Nov/2025,Maria Arevalo,si,A,MF,40.0,
 CA-03-013-CA,3,376679,3204890,07/Nov/2025,09/Nov/2025,Maria Arevalo,si,A,MF,22.0,
 CA-03-012-CA,3,376679,3204890,24/Nov/2025,30/Nov/2025,Maria Arevalo,si,D,MF,55.0,
+CA-Removed,3,376679,3204890,24/Nov/2025,30/Nov/2025,Maria Arevalo,si,A,MF,55.0,

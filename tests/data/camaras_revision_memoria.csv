@@ -1,4 +1,5 @@
 ID_camara,Responsable_revisor_memoria,Fotos_capturadas,Fecha_envio_datos,Fecha_captura_foto,Hora_captura,Individuos_capturados,Observaciones
+CA-Removed,Fernando Lopez,222.0,04/Oct/2025,,,,
 CA-01-001-CA,Fernando Lopez,129.0,04/Oct/2025,,,,
 CA-01-001-CA,Luis Martinez,378.0,19/Oct/2025,03/Ene/2024,22:44:00,1.0,Adulto atigrado
 CA-01-001-CA,Luis Martinez,378.0,19/Oct/2025,12/Ene/2024,19:36:00,1.0,Adulto atigrado marmoleado
@@ -11,3 +12,4 @@ CA-03-013-CA,Salvador Figueroa,99.0,09/Nov/2025,NA,NA,NA,NA
 CA-03-012-CA,Maria Arevalo,1210.0,30/Nov/2025,24/Nov/2025,06:44:00,2.0,Individuos adultos atigrados
 CA-03-012-CA,Maria Arevalo,1210.0,30/Nov/2025,24/Nov/2025,12:26:00,1.0,Juvenil atigrado
 CA-03-012-CA,Maria Arevalo,1210.0,30/Nov/2025,22/Nov/2025,20:34:00,1.0,Juvenil atigrado
+CA-Removed,Maria Arevalo,1210.0,30/Nov/2025,22/Nov/2025,20:34:00,1.0,Juvenil atigrado
