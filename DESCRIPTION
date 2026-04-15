@@ -1,4 +1,4 @@
-Package: cameraData
+Package: cameradata
 Title: Template for R projects
 Authors@R: c(
     person(given = "Ciencia de Datos",

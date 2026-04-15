@@ -1,3 +1,3 @@
 library(testthat)
-library(cameraData)
-test_check("cameraData")
+library(cameradata)
+test_check("cameradata")
