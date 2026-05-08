@@ -31,7 +31,7 @@ Suggests:
     testtools
 Remotes:
     IslasGECI/gecitools,
-    IslasGECI/geci_optparse,
+    IslasGECI/gecioptparse,
     IslasGECI/testtools,
 Type: Package
 Version: 0.3.2
