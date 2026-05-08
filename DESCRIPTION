@@ -11,7 +11,7 @@ Description: Plantilla de Ciencia de Datos en GECI para proyectos en R
 Encoding: UTF-8
 Imports:
     dplyr,
-    geci.optparse,
+    gecioptparse,
     gecitools,
     glue,
     lubridate,
