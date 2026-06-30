@@ -1,4 +1,4 @@
-compute_daily_status <- function(cameras_campo_df) {
+compute_daily_status <- function(cameras_campo_df, cameras_memoria_df) {
   renamed_cameras_campo_df <- cameras_campo_df |>
     dplyr::rename(Date = Fecha_revision_campo, ID = ID_camara_trampa, camera_status = Estado_camara)
   cameras_campo_filled <- renamed_cameras_campo_df |>
@@ -7,4 +7,5 @@ compute_daily_status <- function(cameras_campo_df) {
     tidyr::complete(Date = seq(min(Date), max(Date), by = "day")) |>
     tidyr::fill(camera_status, .direction = "down") |>
     dplyr::ungroup()
+  cameras_campo_filled |> dplyr::mutate("Individuos_capturados" = 1, "Fotos_capturadas" = 10)
 }
