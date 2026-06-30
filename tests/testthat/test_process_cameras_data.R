@@ -5,7 +5,7 @@ describe("compute daily summary", {
   expected_column_names <- c("Date", "Number_of_camera_traps", "Effort", "Total_photos", "Total_individuals")
   expect_true(all(expected_column_names %in% obtained_column_names))
   expected_effort_2022_01_02 <- 3
-  obtained_effort_2022_01_02 <- obtained[obtained$Date == "2022-01-02"]$Effort
+  obtained_effort_2022_01_02 <- obtained[obtained$Date == "2022-01-02", ]$Effort
   expect_equal(obtained_effort_2022_01_02, expected_effort_2022_01_02)
 })
 
@@ -24,7 +24,6 @@ describe("Create cameras daily status", {
   )
   it("compute_daily_status", {
     obtained <- compute_daily_status(cameras_campo_df, cameras_memoria_df)
-    dplyr::glimpse(obtained)
     expected_column_names <- c("Date", "ID", "camera_status", "Individuos_capturados", "Fotos_capturadas")
     obtained_column_names <- colnames(obtained)
     expect_true(all(expected_column_names %in% obtained_column_names))
