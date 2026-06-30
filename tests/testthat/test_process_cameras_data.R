@@ -19,5 +19,7 @@ describe("Create cameras daily status", {
     expect_true(all(expected_column_names %in% obtained_column_names))
     expected_rows <- 10
     expect_equal(nrow(obtained), expected_rows)
+    expected_individuals_for_ct_zzz <- 2
+    expect_equal(obtained$Individuos_capturados[10], expected_individuals_for_ct_zzz)
   })
 })
