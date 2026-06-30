@@ -7,5 +7,8 @@ describe("Create cameras daily status", {
   )
   it("compute_daily_status", {
     obtained <- compute_daily_status(cameras_campo_df)
+    expected_column_names <- c("Date,ID,camera_status")
+    obtained_column_names <- colnames(obtained)
+    expect_true(all(expected_column_names %in% obtained_column_names))
   })
 })
