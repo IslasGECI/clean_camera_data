@@ -1,0 +1,11 @@
+ID,Date,Revision,camera_status,Individuos_capturados,Fotos_capturadas
+CT-01-www-CT,2022-01-02,si,A,NA,NA
+CT-01-xxx-CT,2022-01-02,si,R,NA,NA
+CT-01-xxx-CT,2022-01-03,NA,R,NA,NA
+CT-01-xxx-CT,2022-01-04,si,A,NA,NA
+CT-01-yyy-CT,2022-01-02,si,A,NA,NA
+CT-01-yyy-CT,2022-01-03,NA,A,1,100
+CT-01-yyy-CT,2022-01-04,si,A,NA,NA
+CT-01-zzz-CT,2022-01-02,si,A,NA,NA
+CT-01-zzz-CT,2022-01-03,NA,A,NA,NA
+CT-01-zzz-CT,2022-01-04,si,A,2,1900
