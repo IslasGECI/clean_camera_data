@@ -1,3 +1,7 @@
+compute_daily_summary <- function(cameras_daily_status_df) {
+  tibble::tibble("Date" = 1, "Number_of_camera_traps" = 2, "Effort" = 3, "Total_photos" = 4, "Total_individuals" = 5)
+}
+
 compute_daily_status <- function(cameras_campo_df, cameras_memoria_df) {
   renamed_cameras_campo_df <- cameras_campo_df |>
     dplyr::rename(Date = Fecha_revision_campo, ID = ID_camara_trampa, camera_status = Estado_camara)
