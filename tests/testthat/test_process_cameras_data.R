@@ -1,3 +1,11 @@
+describe("compute daily summary", {
+  cameras_daily_status_df <- readr::read_csv("/workdir/tests/data/cameras_daily_status.csv", show_col_types = FALSE)
+  obtained <- compute_daily_summary(cameras_daily_status_df)
+  obtained_column_names <- colnames(obtained)
+  expected_column_names <- c("Date", "Number_of_camera_traps", "Effort", "Total_photos", "Total_individuals")
+  expect_true(all(expected_column_names %in% obtained_column_names))
+})
+
 describe("Create cameras daily status", {
   cameras_campo_df <- tibble::tibble(
     "Fecha_revision_campo" = c(rep("2022-01-02", 4), rep("2022-01-04", 3)),
@@ -13,7 +21,7 @@ describe("Create cameras daily status", {
   )
   it("compute_daily_status", {
     obtained <- compute_daily_status(cameras_campo_df, cameras_memoria_df)
-    print(obtained)
+    dplyr::glimpse(obtained)
     expected_column_names <- c("Date", "ID", "camera_status", "Individuos_capturados", "Fotos_capturadas")
     obtained_column_names <- colnames(obtained)
     expect_true(all(expected_column_names %in% obtained_column_names))
