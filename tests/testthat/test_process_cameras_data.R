@@ -4,6 +4,9 @@ describe("compute daily summary", {
   obtained_column_names <- colnames(obtained)
   expected_column_names <- c("Date", "Number_of_camera_traps", "Effort", "Total_photos", "Total_individuals")
   expect_true(all(expected_column_names %in% obtained_column_names))
+  expected_effort_2022_01_02 <- 3
+  obtained_effort_2022_01_02 <- obtained[obtained$Date == "2022-01-02"]$Effort
+  expect_equal(obtained_effort_2022_01_02, expected_effort_2022_01_02)
 })
 
 describe("Create cameras daily status", {
