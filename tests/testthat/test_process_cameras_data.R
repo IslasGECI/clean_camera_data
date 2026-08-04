@@ -24,5 +24,7 @@ describe("Create cameras daily status", {
     expect_equal(obtained[obtained$ID == "CT-01-zzz-CT" & obtained$Date == "2022-01-04", ]$Individuos_capturados, expected_individuals_for_ct_zzz)
     expected_status_for_ct_www <- c(rep("A", 4), "R")
     expect_equal(obtained[obtained$ID == "CT-01-www-CT", ]$camera_status, expected_status_for_ct_www)
+    expected_status_for_ct_ad1 <- c(rep("A", 3), "D")
+    expect_equal(obtained[obtained$ID == "CT-01-ad1-CT", ]$camera_status, expected_status_for_ct_ad1)
   })
 })
