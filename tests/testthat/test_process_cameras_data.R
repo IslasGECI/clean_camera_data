@@ -14,12 +14,13 @@ describe("Create cameras daily status", {
   cameras_memoria_df <- readr::read_csv("/workdir/tests/data/camaras_memoria.csv")
   it("compute_daily_status", {
     obtained <- compute_daily_status(cameras_campo_df, cameras_memoria_df)
+    print(obtained)
     expected_column_names <- c("Date", "ID", "camera_status", "Individuos_capturados", "Fotos_capturadas")
     obtained_column_names <- colnames(obtained)
     expect_true(all(expected_column_names %in% obtained_column_names))
     expected_rows <- 10
     expect_equal(nrow(obtained), expected_rows)
     expected_individuals_for_ct_zzz <- 2
-    expect_equal(obtained$Individuos_capturados[10], expected_individuals_for_ct_zzz)
+    expect_equal(obtained[obtained$ID == "CT-01-zzz-CT" & obtained$Date == "2022-01-04", ]$Individuos_capturados, expected_individuals_for_ct_zzz)
   })
 })
