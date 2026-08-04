@@ -10,8 +10,8 @@ describe("compute daily summary", {
 })
 
 describe("Create cameras daily status", {
-  cameras_campo_df <- readr::read_csv("camaras_campo.csv")
-  cameras_memoria_df <- readr::read_csv("camaras_memoria.csv")
+  cameras_campo_df <- readr::read_csv("/workdir/tests/data/camaras_campo.csv")
+  cameras_memoria_df <- readr::read_csv("/workdir/tests/data/camaras_memoria.csv")
   it("compute_daily_status", {
     obtained <- compute_daily_status(cameras_campo_df, cameras_memoria_df)
     expected_column_names <- c("Date", "ID", "camera_status", "Individuos_capturados", "Fotos_capturadas")
