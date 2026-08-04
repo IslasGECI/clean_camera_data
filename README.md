@@ -10,7 +10,14 @@ parameter](https://github.com/IslasGECI//clean_camera_data/actions/workflows/act
 ![GitHub contributors](https://img.shields.io/github/contributors/IslasGECI/clean_camera_data)
 ![R-version](https://img.shields.io/github/r-package/v/IslasGECI/clean_camera_data)
 
+R package to clean and summarize camera trap monitoring data. It joins the
+camera field checks with the camera memory checks, normalizes Spanish dates to
+ISO format, fills the missing weekly records, and produces a weekly summary of
+the installed camera traps, sampling effort, captured photos, and detected
+individuals.
+## CLI functions
 
-
-## Step to use
+- `write_cameras_summary(options)` — main entry point. Reads the camera field
+  check and camera memory check CSVs and writes a weekly summary of camera traps, effort, photos, and
+  individuals to the output CSV.
 
