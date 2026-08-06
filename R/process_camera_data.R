@@ -12,11 +12,9 @@ compute_daily_summary <- function(cameras_daily_status_df) {
 }
 
 compute_daily_status <- function(cameras_campo_df, cameras_memoria_df) {
-  field_check_records <- rename_camera_field_check_columns(cameras_campo_df)
-
-  daily_status_grid <- fill_daily_camera_status(field_check_records, cameras_memoria_df)
-
-  add_taken_photos_and_individuals_to_daily_status_grid(daily_status_grid, cameras_memoria_df)
+  field_check_records <- rename_camera_field_check_columns(cameras_campo_df) |>
+    fill_daily_camera_status(cameras_memoria_df) |>
+    add_taken_photos_and_individuals_to_daily_status_grid(cameras_memoria_df)
 }
 
 add_taken_photos_and_individuals_to_daily_status_grid <- function(daily_status_grid, cameras_memoria_df) {
