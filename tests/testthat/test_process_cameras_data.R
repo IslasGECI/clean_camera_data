@@ -18,7 +18,7 @@ describe("Create cameras daily status", {
     expected_column_names <- c("Date", "ID", "camera_status", "Individuos_capturados", "Fotos_capturadas")
     obtained_column_names <- colnames(obtained)
     expect_true(all(expected_column_names %in% obtained_column_names))
-    expected_rows <- 25
+    expected_rows <- 28
     expect_equal(nrow(obtained), expected_rows)
     expected_individuals_for_ct_zzz <- 2
     expect_equal(obtained[obtained$ID == "CT-01-zzz-CT" & obtained$Date == "2022-01-04", ]$Individuos_capturados, expected_individuals_for_ct_zzz)
@@ -28,5 +28,7 @@ describe("Create cameras daily status", {
     expect_equal(obtained[obtained$ID == "CT-01-ad1-CT", ]$camera_status, expected_status_for_ct_ad1)
     expected_status_for_ct_ad2 <- c(rep("A", 3), rep("D", 3))
     expect_equal(obtained[obtained$ID == "CT-01-ad2-CT", ]$camera_status, expected_status_for_ct_ad2)
+    expected_status_for_ct_ad3 <- c(rep("D", 3))
+    expect_equal(obtained[obtained$ID == "CT-01-ad3-CT", ]$camera_status, expected_status_for_ct_ad3)
   })
 })
