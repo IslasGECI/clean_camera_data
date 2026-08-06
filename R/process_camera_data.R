@@ -16,11 +16,7 @@ compute_daily_status <- function(cameras_campo_df, cameras_memoria_df) {
 
   deactivated_camera_ids <- get_deactivated_camera_ids(field_check_records)
 
-  last_photo_date_by_camera <- cameras_memoria_df |>
-    dplyr::filter(!is.na(Fecha_captura_foto)) |>
-    dplyr::group_by(ID_camara) |>
-    dplyr::summarise(last_photo_date = max(Fecha_captura_foto)) |>
-    dplyr::ungroup()
+  last_photo_date_by_camera <- get_last_photo_date_by_camera(cameras_memoria_df)
 
   daily_status_grid <- field_check_records |>
     dplyr::group_by(ID) |>
@@ -35,6 +31,14 @@ compute_daily_status <- function(cameras_campo_df, cameras_memoria_df) {
 
   daily_status_grid |>
     dplyr::left_join(cameras_memoria_df, by = dplyr::join_by(ID == ID_camara, Date == Fecha_captura_foto))
+}
+
+get_last_photo_date_by_camera <- function(cameras_memoria_df) {
+  cameras_memoria_df |>
+    dplyr::filter(!is.na(Fecha_captura_foto)) |>
+    dplyr::group_by(ID_camara) |>
+    dplyr::summarise(last_photo_date = max(Fecha_captura_foto)) |>
+    dplyr::ungroup()
 }
 
 get_deactivated_camera_ids <- function(field_check_records) {
