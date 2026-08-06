@@ -18,7 +18,14 @@ compute_daily_status <- function(cameras_campo_df, cameras_memoria_df) {
 
   last_photo_date_by_camera <- get_last_photo_date_by_camera(cameras_memoria_df)
 
-  daily_status_grid <- field_check_records |>
+  daily_status_grid <- fill_daily_camera_status(field_check_records, last_photo_date_by_camera, deactivated_camera_ids)
+
+  daily_status_grid |>
+    dplyr::left_join(cameras_memoria_df, by = dplyr::join_by(ID == ID_camara, Date == Fecha_captura_foto))
+}
+
+fill_daily_camera_status <- function(field_check_records, last_photo_date_by_camera, deactivated_camera_ids) {
+  field_check_records |>
     dplyr::group_by(ID) |>
     tidyr::complete(Date = seq(min(Date), max(Date), by = "day")) |>
     tidyr::fill(camera_status, .direction = "down") |>
@@ -28,9 +35,6 @@ compute_daily_status <- function(cameras_campo_df, cameras_memoria_df) {
       ID %in% deactivated_camera_ids & camera_status == "A" & Date > last_photo_date ~ "D",
       TRUE ~ camera_status
     ))
-
-  daily_status_grid |>
-    dplyr::left_join(cameras_memoria_df, by = dplyr::join_by(ID == ID_camara, Date == Fecha_captura_foto))
 }
 
 get_last_photo_date_by_camera <- function(cameras_memoria_df) {
