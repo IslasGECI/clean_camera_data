@@ -12,10 +12,10 @@ compute_daily_summary <- function(cameras_daily_status_df) {
 }
 
 compute_daily_status <- function(cameras_campo_df, cameras_memoria_df) {
-  renamed_cameras_campo_df <- cameras_campo_df |>
+  field_check_records <- cameras_campo_df |>
     dplyr::rename(Date = Fecha_revision_campo, ID = ID_camara_trampa, camera_status = Estado_camara)
 
-  cameras_with_d <- renamed_cameras_campo_df |>
+  deactivated_camera_ids <- field_check_records |>
     dplyr::filter(camera_status == "D") |>
     dplyr::pull(ID)
 
@@ -25,17 +25,17 @@ compute_daily_status <- function(cameras_campo_df, cameras_memoria_df) {
     dplyr::summarise(last_photo_date = max(Fecha_captura_foto)) |>
     dplyr::ungroup()
 
-  cameras_campo_filled <- renamed_cameras_campo_df |>
+  daily_status_grid <- field_check_records |>
     dplyr::group_by(ID) |>
     tidyr::complete(Date = seq(min(Date), max(Date), by = "day")) |>
     tidyr::fill(camera_status, .direction = "down") |>
     dplyr::ungroup() |>
     dplyr::left_join(last_photo_date_by_camera, by = c("ID" = "ID_camara")) |>
     dplyr::mutate(camera_status = dplyr::case_when(
-      ID %in% cameras_with_d & camera_status == "A" & Date > last_photo_date ~ "D",
+      ID %in% deactivated_camera_ids & camera_status == "A" & Date > last_photo_date ~ "D",
       TRUE ~ camera_status
     ))
 
-  cameras_campo_filled |>
+  daily_status_grid |>
     dplyr::left_join(cameras_memoria_df, by = dplyr::join_by(ID == ID_camara, Date == Fecha_captura_foto))
 }
