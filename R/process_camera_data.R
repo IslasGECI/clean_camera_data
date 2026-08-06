@@ -12,8 +12,7 @@ compute_daily_summary <- function(cameras_daily_status_df) {
 }
 
 compute_daily_status <- function(cameras_campo_df, cameras_memoria_df) {
-  field_check_records <- cameras_campo_df |>
-    dplyr::rename(Date = Fecha_revision_campo, ID = ID_camara_trampa, camera_status = Estado_camara)
+  field_check_records <- rename_camera_field_check_columns(cameras_campo_df)
 
   deactivated_camera_ids <- field_check_records |>
     dplyr::filter(camera_status == "D") |>
@@ -38,4 +37,9 @@ compute_daily_status <- function(cameras_campo_df, cameras_memoria_df) {
 
   daily_status_grid |>
     dplyr::left_join(cameras_memoria_df, by = dplyr::join_by(ID == ID_camara, Date == Fecha_captura_foto))
+}
+
+rename_camera_field_check_columns <- function(cameras_campo_df) {
+  cameras_campo_df |>
+    dplyr::rename(Date = Fecha_revision_campo, ID = ID_camara_trampa, camera_status = Estado_camara)
 }
