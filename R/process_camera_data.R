@@ -16,6 +16,10 @@ compute_daily_status <- function(cameras_campo_df, cameras_memoria_df) {
 
   daily_status_grid <- fill_daily_camera_status(field_check_records, cameras_memoria_df)
 
+  add_taken_photos_and_individuals_to_daily_status_grid(daily_status_grid, cameras_memoria_df)
+}
+
+add_taken_photos_and_individuals_to_daily_status_grid <- function(daily_status_grid, cameras_memoria_df) {
   daily_status_grid |>
     dplyr::left_join(cameras_memoria_df, by = dplyr::join_by(ID == ID_camara, Date == Fecha_captura_foto))
 }
