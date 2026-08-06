@@ -14,7 +14,7 @@ describe("Create cameras daily status", {
   cameras_memoria_df <- readr::read_csv("/workdir/tests/data/camaras_memoria.csv")
   it("compute_daily_status", {
     obtained <- compute_daily_status(cameras_campo_df, cameras_memoria_df)
-    print(obtained)
+    obtained |> readr::write_csv("prueba.csv")
     expected_column_names <- c("Date", "ID", "camera_status", "Individuos_capturados", "Fotos_capturadas")
     obtained_column_names <- colnames(obtained)
     expect_true(all(expected_column_names %in% obtained_column_names))
