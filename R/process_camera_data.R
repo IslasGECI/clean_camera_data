@@ -25,12 +25,9 @@ add_taken_photos_and_individuals_to_daily_status_grid <- function(daily_status_g
 
 fill_daily_camera_status <- function(field_check_records, cameras_memoria_df) {
   deactivated_camera_ids <- get_deactivated_camera_ids(field_check_records)
+  unkwnow_date_camera_ids <- get_camera_ids_with_taken_photos_without_detections(cameras_memoria_df)
   last_photo_date_by_camera <- get_last_photo_date_by_camera(cameras_memoria_df)
 
-  unkwnow_date_camera_ids <- cameras_memoria_df |>
-    dplyr::filter(is.na(Fecha_captura_foto) & Fotos_capturadas > 0) |>
-    dplyr::distinct(ID_camara) |>
-    dplyr::pull(ID_camara)
 
   field_check_records |>
     dplyr::group_by(ID) |>
@@ -62,6 +59,13 @@ get_deactivated_camera_ids <- function(field_check_records) {
   field_check_records |>
     dplyr::filter(camera_status == "D") |>
     dplyr::pull(ID)
+}
+
+get_camera_ids_with_taken_photos_without_detections <- function(cameras_memoria_df) {
+  cameras_memoria_df |>
+    dplyr::filter(is.na(Fecha_captura_foto) & Fotos_capturadas > 0) |>
+    dplyr::distinct(ID_camara) |>
+    dplyr::pull(ID_camara)
 }
 
 rename_camera_field_check_columns <- function(cameras_campo_df) {
