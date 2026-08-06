@@ -70,7 +70,7 @@ get_deactivated_camera_ids <- function(field_check_records) {
 get_double_deactivated_camera_ids <- function(field_check_records) {
   field_check_records |>
     dplyr::group_by(ID) |>
-    dplyr::filter(camera_status == "D" & dplyr::lead(camera_status) == "D") |>
+    dplyr::filter(camera_status == "D" & dplyr::lead(camera_status) == "D" | dplyr::lead(camera_status) == "R") |>
     dplyr::pull(ID)
 }
 
