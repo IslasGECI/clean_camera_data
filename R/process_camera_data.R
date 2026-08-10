@@ -36,10 +36,7 @@ fill_daily_camera_status <- function(field_check_records, cameras_memoria_df) {
     dplyr::group_by(ID) |>
     tidyr::complete(Date = seq(min(Date), max(Date), by = "day")) |>
     tidyr::fill(camera_status, .direction = "down") |>
-    dplyr::mutate(
-      day_rank = dplyr::row_number(),
-      half_point = ceiling(dplyr::n() / 2),
-    ) |>
+    calcualte_half_point_between_last_and_current_check() |>
     dplyr::ungroup() |>
     dplyr::left_join(last_photo_date_by_camera, by = c("ID" = "ID_camara")) |>
     dplyr::mutate(camera_status = dplyr::case_when(
@@ -51,6 +48,13 @@ fill_daily_camera_status <- function(field_check_records, cameras_memoria_df) {
       ID %in% deactivated_camera_ids & camera_status == "A" & Date > last_photo_date ~ "D",
       TRUE ~ camera_status
     ))
+}
+calcualte_half_point_between_last_and_current_check <- function(data) {
+  data |>
+    dplyr::mutate(
+      day_rank = dplyr::row_number(),
+      half_point = ceiling(dplyr::n() / 2),
+    )
 }
 
 get_last_photo_date_by_camera <- function(cameras_memoria_df) {
