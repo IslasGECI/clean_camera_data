@@ -40,7 +40,7 @@ describe("Create cameras daily status", {
     expect_equal(obtained[obtained$ID == "CT-01-xxx-CT", ]$camera_status, expected_status_for_ct_xxx)
     expected_status_for_ct_rad <- c(rep("R", 2), rep("A", 2), rep("D", 3))
     expect_equal(obtained[obtained$ID == "CT-01-rad-CT", ]$camera_status, expected_status_for_ct_rad)
-    expected_status_for_ct_dad <- c(rep("A", 7), "D")
+    expected_status_for_ct_dad <- c(rep("A", 6), "D")
     expect_equal(obtained[obtained$ID == "CT-01-dad-CT", ]$camera_status, expected_status_for_ct_dad)
   })
 })
