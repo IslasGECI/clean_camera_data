@@ -6,7 +6,7 @@
 - **Approach**: Top-down post-hoc correction via `apply_camera_status_rules()` (extend the current pattern rather than iterate period-by-period).
 - **Status grid semantics**: The daily status grid reflects what happened in each period. `compute_daily_summary()` filters on `camera_status == "A"` and counts effort as `n_distinct(ID)` — this is correct; the case-table rules shape the grid, not the summary aggregation.
 
-## Case Table: Single Transitions (already implemented and tested)
+## Case Table: Single Transitions (implemented and tested)
 
 | Test Case | Transition | Expected Status | Status |
 |-----------|-----------|-----------------|:---:|
@@ -33,41 +33,53 @@
 
 ---
 
-## To Do: Multi-Transition Cases
+## Multi-Transition Cases
 
-Implement `compute_daily_status()` and extend `apply_camera_status_rules()` for cameras with **three or more field-check records** (two or more transitions). Candidates include:
+### Implemented
 
-- [ ] R → A → D  (retired, reactivated, then deactivated)
-- [ ] D → A → D  (deactivated, reactivated, deactivated again)
-- [ ] A → D → A  (active, deactivated, reactivated)
-- [ ] R → A → R  (retired, reactivated, retired again)
-- [ ] A → R → A  (active, retired, reactivated)
-- [ ] D → R → A  (deactivated, retired, reactivated)
+| Test Case | Transition | Sub-case | Expected Status | Status |
+|-----------|------------|----------|-----------------|:---:|
+| CT-01-rad-CT | R → A → D | 2 (photos, no date) | R,R,A,A,D,D,D | ✅ |
+| CT-01-dad-CT | D → A → D | 1 (has photo date) | A,A,A,A,A,A,D | 🛑 |
+
+### Next Step
+
+Fix `apply_camera_status_rules()` so D → A → D (sub-case 1) produces the correct daily status grid. The current `reactivated` rule is too aggressive — it sets all rows to `"A"` for any camera with a D→A transition, overwriting the pre-reactivation D period and preventing the post-reactivation A→D logic from converting the final day to `"D"`.
+
+The fix needs to ensure that for cameras appearing in both `reactivated` and `deactivated` classifications, the A→D deactivation rule fires for dates after `last_photo_date` even though reactivated fires first.
+
+### Remaining Multi-Transition Patterns
+
+Each pattern below needs test data, a test assertion, and rule logic. At least one sub-case per pattern must be covered.
+
+- [ ] R → A → D, sub-case 1 (has photo date)
+- [ ] R → A → D, sub-case 3 (no photos)
+- [ ] D → A → D, sub-case 2 (photos, no date)
+- [ ] D → A → D, sub-case 3 (no photos)
+- [ ] A → D → A (active, deactivated, reactivated)
+- [ ] R → A → R (retired, reactivated, retired again)
+- [ ] A → R → A (active, retired, reactivated)
+- [ ] D → R → A (deactivated, retired, reactivated)
 - [ ] Any longer chain (4+ records)
-
-Each multi-transition case needs:
-1. Test data in `camaras_campo.csv` and `camaras_memoria.csv`
-2. A test assertion in `test_process_cameras_data.R`
-3. Rule logic in `apply_camera_status_rules()` (and supporting classification functions)
 
 ---
 
 ## Things to Consider for Data Predating the Existence of "R"
 
-- Default to a pessimistic scenario (count less effort rather than more).
-- If captured photos exist, we know the camera worked. Example: if the camera was reviewed on August 2 with status D, the previous review date was June 1, and the memory-card review shows captured photos, we know the camera was operating in the field — apply the A → D criterion.
-- If no captured photos exist, do not count effort.
+- [ ] Default to a pessimistic scenario (count less effort rather than more).
+- [ ] If captured photos exist, we know the camera worked. Example: if the camera was reviewed on August 2 with status D, the previous review date was June 1, and the memory-card review shows captured photos, we know the camera was operating in the field — apply the A → D criterion.
+- [ ] If no captured photos exist, do not count effort.
 
 ---
 
 ## How Do We Handle Photo Capture Dates That Are Out of Range?
 
-- Raise an error.
-- Consider: if a row in `cameras_daily_status` has NAs in both `Revision` and `camera_status`, this may indicate a date was entered incorrectly.
-- Treat this as evidence that something is wrong with the data (e.g., a misconfigured date).
+- [ ] Raise an error.
+- [ ] Consider: if a row in `cameras_daily_status` has NAs in both `Revision` and `camera_status`, this may indicate a date was entered incorrectly.
+- [ ] Treat this as evidence that something is wrong with the data (e.g., a misconfigured date).
 
 ---
 
 ## Open Questions
 
-- Should R → R cases raise an error instead of silently not counting toward effort?
+- [ ] Should R → R cases raise an error instead of silently not counting toward effort?
