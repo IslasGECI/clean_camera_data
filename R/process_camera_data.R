@@ -28,6 +28,7 @@ fill_daily_camera_status <- function(field_check_records, cameras_memoria_df) {
     deactivated = compute_deactivated_camera_ids(field_check_records),
     reactivated = compute_reactivated_camera_ids(field_check_records),
     double_deactivated = compute_double_deactivated_camera_ids(field_check_records),
+    retired_before_active = compute_retired_before_active_camera_ids(field_check_records),
     unknown_date = compute_camera_ids_with_taken_photos_without_detections(cameras_memoria_df),
     no_photos_taken = compute_camera_ids_without_taken_photos(cameras_memoria_df)
   )
@@ -48,6 +49,7 @@ apply_camera_status_rules <- function(daily_status_grid, cameras_ids_classificat
     dplyr::mutate(camera_status = dplyr::case_when(
       ID %in% cameras_ids_classification$double_deactivated & camera_status == "D" & Date <= last_photo_date ~ "A",
       ID %in% cameras_ids_classification$reactivated ~ "A",
+      ID %in% cameras_ids_classification$retired_before_active & camera_status == "R" ~ "R",
       ID %in% cameras_ids_classification$unknown_date & day_rank <= half_point ~ "A",
       ID %in% cameras_ids_classification$unknown_date & day_rank > half_point ~ "D",
       ID %in% cameras_ids_classification$no_photos_taken & ID %in% cameras_ids_classification$deactivated ~ "D",
@@ -102,6 +104,13 @@ compute_camera_ids_with_taken_photos_without_detections <- function(cameras_memo
     dplyr::filter(is.na(Fecha_captura_foto) & Fotos_capturadas > 0) |>
     dplyr::distinct(ID_camara) |>
     dplyr::pull(ID_camara)
+}
+
+compute_retired_before_active_camera_ids <- function(field_check_records) {
+  field_check_records |>
+    dplyr::group_by(ID) |>
+    dplyr::filter(dplyr::row_number() == 1 & camera_status == "R") |>
+    dplyr::pull(ID)
 }
 
 rename_camera_field_check_columns <- function(cameras_campo_df) {
