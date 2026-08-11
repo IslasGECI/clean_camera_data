@@ -14,7 +14,6 @@ compute_daily_summary <- function(cameras_daily_status_df) {
 compute_daily_status <- function(cameras_campo_df, cameras_memoria_df) {
   daily_status_grid <- rename_camera_field_check_columns(cameras_campo_df) |>
     fill_daily_camera_status(cameras_memoria_df) |>
-    print(n = 20) |>
     add_taken_photos_and_individuals_to_daily_status_grid(cameras_memoria_df)
 }
 
@@ -38,7 +37,7 @@ fill_daily_camera_status <- function(field_check_records, cameras_memoria_df) {
     dplyr::group_by(ID) |>
     tidyr::complete(Date = seq(min(Date), max(Date), by = "day")) |>
     tidyr::fill(camera_status, .direction = "down") |>
-    calculate_half_point_between_last_and_current_check() |>
+    compute_half_point() |>
     dplyr::ungroup() |>
     dplyr::left_join(last_photo_date_by_camera, by = c("ID" = "ID_camara")) |>
     apply_camera_status_rules(cameras_ids_classification)
@@ -57,7 +56,7 @@ apply_camera_status_rules <- function(daily_status_grid, cameras_ids_classificat
       TRUE ~ camera_status
     ))
 }
-calculate_half_point_between_last_and_current_check <- function(data) {
+compute_half_point <- function(data) {
   data |>
     dplyr::mutate(
       day_rank = dplyr::row_number(),
