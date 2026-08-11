@@ -24,12 +24,13 @@ add_taken_photos_and_individuals_to_daily_status_grid <- function(daily_status_g
 }
 
 fill_daily_camera_status <- function(field_check_records, cameras_memoria_df) {
-  deactivated_camera_ids <- compute_deactivated_camera_ids(field_check_records)
-  reactivated_camera_ids <- compute_reactivated_camera_ids(field_check_records)
-  double_deactivated_camera_ids <- compute_double_deactivated_camera_ids(field_check_records)
-  unknown_date_camera_ids <- compute_camera_ids_with_taken_photos_without_detections(cameras_memoria_df)
-
-  no_photos_taken_camera_ids <- compute_camera_ids_without_taken_photos(cameras_memoria_df)
+  camera_ids <- list(
+    deactivated = compute_deactivated_camera_ids(field_check_records),
+    reactivated = compute_reactivated_camera_ids(field_check_records),
+    double_deactivated = compute_double_deactivated_camera_ids(field_check_records),
+    unknown_date = compute_camera_ids_with_taken_photos_without_detections(cameras_memoria_df),
+    no_photos_taken = compute_camera_ids_without_taken_photos(cameras_memoria_df)
+  )
   last_photo_date_by_camera <- compute_last_photo_date_by_camera(cameras_memoria_df)
 
   field_check_records |>
@@ -39,13 +40,18 @@ fill_daily_camera_status <- function(field_check_records, cameras_memoria_df) {
     calculate_half_point_between_last_and_current_check() |>
     dplyr::ungroup() |>
     dplyr::left_join(last_photo_date_by_camera, by = c("ID" = "ID_camara")) |>
+    apply_camera_status_rules(camera_ids)
+}
+
+apply_camera_status_rules <- function(daily_status_grid, camera_ids) {
+  daily_status_grid |>
     dplyr::mutate(camera_status = dplyr::case_when(
-      ID %in% double_deactivated_camera_ids & camera_status == "D" & Date <= last_photo_date ~ "A",
-      ID %in% reactivated_camera_ids ~ "A",
-      ID %in% unknown_date_camera_ids & day_rank <= half_point ~ "A",
-      ID %in% unknown_date_camera_ids & day_rank > half_point ~ "D",
-      ID %in% no_photos_taken_camera_ids & ID %in% deactivated_camera_ids ~ "D",
-      ID %in% deactivated_camera_ids & camera_status == "A" & Date > last_photo_date ~ "D",
+      ID %in% camera_ids$double_deactivated & camera_status == "D" & Date <= last_photo_date ~ "A",
+      ID %in% camera_ids$reactivated ~ "A",
+      ID %in% camera_ids$unknown_date & day_rank <= half_point ~ "A",
+      ID %in% camera_ids$unknown_date & day_rank > half_point ~ "D",
+      ID %in% camera_ids$no_photos_taken & ID %in% camera_ids$deactivated ~ "D",
+      ID %in% camera_ids$deactivated & camera_status == "A" & Date > last_photo_date ~ "D",
       TRUE ~ camera_status
     ))
 }
