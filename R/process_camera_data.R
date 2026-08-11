@@ -5,9 +5,9 @@ compute_daily_summary <- function(cameras_daily_status_df) {
     dplyr::summarise(
       Number_of_camera_traps = dplyr::n_distinct(ID),
       Total_photos = sum(Fotos_capturadas, na.rm = TRUE),
-      Total_individuals = sum(Individuos_capturados, na.rm = TRUE)
+      Total_individuals = sum(Individuos_capturados, na.rm = TRUE),
+      Effort = dplyr::n_distinct(ID),
     ) |>
-    dplyr::mutate(Effort = Number_of_camera_traps) |>
     dplyr::ungroup()
 }
 
@@ -74,7 +74,7 @@ compute_deactivated_camera_ids <- function(field_check_records) {
 compute_double_deactivated_camera_ids <- function(field_check_records) {
   field_check_records |>
     dplyr::group_by(ID) |>
-    dplyr::filter(camera_status == "D" & dplyr::lead(camera_status) == "D" | dplyr::lead(camera_status) == "R") |>
+    dplyr::filter(camera_status == "D" & (dplyr::lead(camera_status) == "D" | dplyr::lead(camera_status) == "R")) |>
     dplyr::pull(ID)
 }
 
