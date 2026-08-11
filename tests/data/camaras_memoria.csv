@@ -1,4 +1,4 @@
-Fecha_revision_campo,Fecha_captura_foto,ID_camara,Individuos_capturados,Fotos_capturadas
+Fecha_envio_datos,Fecha_captura_foto,ID_camara,Individuos_capturados,Fotos_capturadas
 2022-01-02,NA,CT-01-www-CT,0,1
 2022-01-06,NA,CT-01-www-CT,0,1
 2022-01-04,NA,CT-01-xxx-CT,0,NA
@@ -11,3 +11,5 @@ Fecha_revision_campo,Fecha_captura_foto,ID_camara,Individuos_capturados,Fotos_ca
 2022-01-04,NA,CT-01-da1-CT,0,6
 2022-01-07,2022-01-05,CT-01-dd1-CT,1,32
 2022-01-07,2022-01-05,CT-01-dr1-CT,1,10
+2022-01-04,NA,CT-01-rad-CT,NA,NA
+2022-01-08,NA,CT-01-rad-CT,0,48
