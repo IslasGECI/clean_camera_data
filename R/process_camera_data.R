@@ -44,7 +44,7 @@ fill_daily_camera_status <- function(field_check_records, cameras_memoria_df) {
       ID %in% reactivated_camera_ids ~ "A",
       ID %in% unkwnow_date_camera_ids & day_rank <= half_point ~ "A",
       ID %in% unkwnow_date_camera_ids & day_rank > half_point ~ "D",
-      ID %in% no_photos_taken_ids ~ "D",
+      ID %in% no_photos_taken_ids & ID %in% deactivated_camera_ids ~ "D",
       ID %in% deactivated_camera_ids & camera_status == "A" & Date > last_photo_date ~ "D",
       TRUE ~ camera_status
     ))
