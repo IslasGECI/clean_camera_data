@@ -46,15 +46,51 @@ fill_daily_camera_status <- function(field_check_records, cameras_memoria_df) {
 apply_camera_status_rules <- function(daily_status_grid, cameras_ids_classification) {
   daily_status_grid |>
     dplyr::mutate(camera_status = dplyr::case_when(
-      ID %in% cameras_ids_classification$down_again & Date <= last_photo_date ~ "A",
-      ID %in% cameras_ids_classification$reactivated & (is.na(last_photo_date) | Date <= last_photo_date) ~ "A",
-      ID %in% cameras_ids_classification$retired_before_active & camera_status == "R" ~ "R",
-      ID %in% cameras_ids_classification$photos_without_capture_date & day_rank <= half_point ~ "A",
-      ID %in% cameras_ids_classification$photos_without_capture_date & day_rank > half_point ~ "D",
-      ID %in% cameras_ids_classification$no_captured_photos & ID %in% cameras_ids_classification$deactivated ~ "D",
-      ID %in% cameras_ids_classification$deactivated & camera_status == "A" & Date > last_photo_date ~ "D",
+      is_down_again_up_to_last_photo_date(daily_status_grid, cameras_ids_classification) ~ "A",
+      is_reactivated_up_to_last_photo_date(daily_status_grid, cameras_ids_classification) ~ "A",
+      is_retired_before_active(daily_status_grid, cameras_ids_classification) ~ "R",
+      is_first_half_of_undated_period(daily_status_grid, cameras_ids_classification) ~ "A",
+      is_second_half_of_undated_period(daily_status_grid, cameras_ids_classification) ~ "D",
+      is_deactivated_without_photos(daily_status_grid, cameras_ids_classification) ~ "D",
+      is_deactivated_after_last_photo_date(daily_status_grid, cameras_ids_classification) ~ "D",
       TRUE ~ camera_status
     ))
+}
+
+is_down_again_up_to_last_photo_date <- function(daily_status_grid, cameras_ids_classification) {
+  daily_status_grid$ID %in% cameras_ids_classification$down_again &
+    daily_status_grid$Date <= daily_status_grid$last_photo_date
+}
+
+is_reactivated_up_to_last_photo_date <- function(daily_status_grid, cameras_ids_classification) {
+  daily_status_grid$ID %in% cameras_ids_classification$reactivated &
+    (is.na(daily_status_grid$last_photo_date) | daily_status_grid$Date <= daily_status_grid$last_photo_date)
+}
+
+is_retired_before_active <- function(daily_status_grid, cameras_ids_classification) {
+  daily_status_grid$ID %in% cameras_ids_classification$retired_before_active &
+    daily_status_grid$camera_status == "R"
+}
+
+is_first_half_of_undated_period <- function(daily_status_grid, cameras_ids_classification) {
+  daily_status_grid$ID %in% cameras_ids_classification$photos_without_capture_date &
+    daily_status_grid$day_rank <= daily_status_grid$half_point
+}
+
+is_second_half_of_undated_period <- function(daily_status_grid, cameras_ids_classification) {
+  daily_status_grid$ID %in% cameras_ids_classification$photos_without_capture_date &
+    daily_status_grid$day_rank > daily_status_grid$half_point
+}
+
+is_deactivated_without_photos <- function(daily_status_grid, cameras_ids_classification) {
+  daily_status_grid$ID %in% cameras_ids_classification$no_captured_photos &
+    daily_status_grid$ID %in% cameras_ids_classification$deactivated
+}
+
+is_deactivated_after_last_photo_date <- function(daily_status_grid, cameras_ids_classification) {
+  daily_status_grid$ID %in% cameras_ids_classification$deactivated &
+    daily_status_grid$camera_status == "A" &
+    daily_status_grid$Date > daily_status_grid$last_photo_date
 }
 compute_half_point <- function(data) {
   data |>
