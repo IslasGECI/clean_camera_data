@@ -3,54 +3,72 @@
 ## Architecture Decisions
 
 - **Grain**: The `calculate_cameras_summary()` pipeline will be replaced with the `compute_daily_status()` → `compute_daily_summary()` pipeline, producing **daily** output. CLI changes deferred to a later step.
-- **Approach**: Top-down post-hoc correction via `apply_camera_status_rules()` (extend the current pattern rather than iterate period-by-period).
-- **Status grid semantics**: The daily status grid reflects what happened in each period. `compute_daily_summary()` filters on `camera_status == "A"` and counts effort as `n_distinct(ID)` — this is correct; the case-table rules shape the grid, not the summary aggregation.
+- **Approach**: Period-by-period filling. For each camera ID, iterate its field checks in date order; each pair of consecutive checks (e.g. `A → D`) defines a period, and the days of that period are filled according to the transition's fill rule (see *Period Fill Rules*). This replaces the previous top-down post-hoc correction via `apply_camera_status_rules()`.
+- **Midpoint scope**: The "photos, no date" sub-case (A → D criterion #2) computes the midpoint **per period** — over the interval between the two review dates of that transition — not over the camera's whole observed span.
+- **Pessimistic default**: When activity dates are unknown, underestimate effort — prefer "not working" over "working". For the "photos, no date" sub-case this means filling `floor(N/2)` active days (not `ceil(N/2)`).
+- **Fill direction (mixed convention)**: `R` is an event — the camera is retired on the check day, so `R` applies from that day forward ("opens"). `A` and `D` are observations of how the camera was found at the check, i.e. the state the preceding period ended in ("ends"). The days between two checks are filled by the transition's rule.
+- **Status grid semantics**: The daily status grid reflects what happened in each period. `compute_daily_summary()` filters on `camera_status == "A"` and counts effort as `n_distinct(ID)` — this is correct; the period fill rules shape the grid, not the summary aggregation.
 
-## Case Table: Single Transitions (implemented and tested)
+## Period Fill Rules
 
-| Test Case | Transition | Expected Status | Status |
-|-----------|-----------|-----------------|:---:|
-| CT-01-yyy-CT | A → A | All A | ✅ |
-| CT-01-zzz-CT* | A → A (photo=review date) | All A | ✅ |
-| CT-01-www-CT | A → R | Uses A → D criterion | ✅ |
-| CT-01-xxx-CT | R → A → A | R for R→A period, A for A→A period | ✅ |
-| CT-01-ad1-CT | A → D (has photo date) | A up to last photo date, then D | ✅ |
-| CT-01-ad2-CT | A → D (photos, no date) | A up to midpoint, then D | ✅ |
-| CT-01-ad3-CT | A → D (no photos) | All D | ✅ |
-| CT-01-da1-CT | D → A | All A | ✅ |
-| CT-01-dd1-CT | D → D | Uses A → D criterion | ✅ |
-| CT-01-dr1-CT | D → R | Uses A → D criterion | ✅ |
+For each camera, sort its field checks by date. Each consecutive pair defines a period; fill its days as follows:
 
-\* CT-01-zzz-CT: photo capture date matches the field review date.
+| Transition | Fill rule |
+|-----------|-----------|
+| A → A | All days = A |
+| A → D | A → D criterion (see below) |
+| A → R | A → D criterion for the days before retirement; the retirement day = R |
+| D → A | All days = A (the camera was actually working) |
+| D → D | A → D criterion |
+| D → R | A → D criterion for the days before retirement; the retirement day = R |
+| R → A | R up to the A check, then A |
+| R → R | Open — see Open Questions |
 
 **Legend:** A = Active, R = Retired, D = Down/Not working
 
+Longer chains (3+ checks) compose the rules above period by period.
+
+`R` is an event (retirement happens on the check day), so it "opens" the `R` stretch and holds forward until the next check. `A` and `D` are observations of how the camera was found, so they describe how the period since the previous check "ends"; the A → D criterion resolves when the flip to `D` happened.
+
 ### Special Criterion: A → D
 
-1. If a photo capture date exists: fill up to that date (last evidence the camera was operating). Tested with `CT-01-ad1-CT`.
-2. If no photo capture date but captured photos exist: count effort as half the time between the two dates. Tested with `CT-01-ad2-CT` and `CT-01-www-CT`.
-3. If no photo capture date and no captured photos: fill with D (do not count effort). Tested with `CT-01-ad3-CT`.
+1. If a photo capture date exists: fill A up to that date (last evidence the camera was operating), then D. Tested with `CT-01-ad1-CT`.
+2. If no photo capture date but captured photos exist: fill A for the first `floor(N/2)` days of the period and the rest as not active (pessimistic — underestimate effort when the activity date is unknown). For A → R / D → R, the retirement day is filled R instead of D. Tested with `CT-01-ad2-CT` and `CT-01-www-CT`.
+3. If no photo capture date and no captured photos: fill all days = D (do not count effort). Tested with `CT-01-ad3-CT`.
 
 ---
 
-## Multi-Transition Cases
-
-### Implemented
+## Test Cases
 
 | Test Case | Transition | Sub-case | Expected Status | Status |
-|-----------|------------|----------|-----------------|:---:|
+|-----------|-----------|----------|-----------------|:---:|
+| CT-01-yyy-CT | A → A | — | All A | ✅ |
+| CT-01-zzz-CT* | A → A (photo=review date) | — | All A | ✅ |
+| CT-01-www-CT | A → R | 2 (photos, no date) | A,A,D,D,R | 🛑 |
+| CT-01-xxx-CT | R → A → A | — | R,R,A…A | ✅ |
+| CT-01-ad1-CT | A → D | 1 (has photo date) | A,A,A,D,D | ✅ |
+| CT-01-ad2-CT | A → D | 2 (photos, no date) | A,A,A,D,D,D | ✅ |
+| CT-01-ad3-CT | A → D | 3 (no photos) | D,D,D | ✅ |
+| CT-01-da1-CT | D → A | — | All A | ✅ |
+| CT-01-dd1-CT | D → D | 1 (has photo date) | A,A,D,D | ✅ |
+| CT-01-dr1-CT | D → R | 1 (has photo date) | A,A,D,R | ✅ |
 | CT-01-rad-CT | R → A → D | 2 (photos, no date) | R,R,A,A,D,D,D | ✅ |
-| CT-01-dad-CT | D → A → D | 1 (has photo date) | A,A,A,A,A,A,D | 🛑 |
+| CT-01-dad-CT | D → A → D | 1 (has photo date) | A,A,A,A,A,A,D | ✅ |
 
-### Next Step
+\* CT-01-zzz-CT: photo capture date matches the field review date.
 
-Fix `apply_camera_status_rules()` so D → A → D (sub-case 1) produces the correct daily status grid. The current `reactivated` rule is too aggressive — it sets all rows to `"A"` for any camera with a D→A transition, overwriting the pre-reactivation D period and preventing the post-reactivation A→D logic from converting the final day to `"D"`.
+Notes:
 
-The fix needs to ensure that for cameras appearing in both `reactivated` and `deactivated` classifications, the A→D deactivation rule fires for dates after `last_photo_date` even though reactivated fires first.
+- `CT-01-www-CT` changes from `A,A,A,D,D` to `A,A,D,D,R`: the retirement day stays `R` (mixed convention) and the "photos, no date" split uses the pessimistic `floor(N/2)` = 2 active days over its 5-day period.
+- `CT-01-rad-CT` keeps `R,R,A,A,D,D,D`: the pessimistic per-period midpoint over the A → D period (5 days → `floor(5/2)` = 2 A + 3 D) reproduces the current behavior.
+- All other cases are unchanged by the per-period midpoint, the pessimistic default, and the mixed convention.
+- Values marked 🛑 are the expected targets for the period-by-period implementation; the corresponding tests must be updated when those cases are (re)implemented.
 
-### Remaining Multi-Transition Patterns
+---
 
-Each pattern below needs test data, a test assertion, and rule logic. At least one sub-case per pattern must be covered.
+## Remaining Multi-Transition Patterns
+
+Each pattern below needs test data, a test assertion, and fill-rule coverage. At least one sub-case per pattern must be covered.
 
 - [ ] R → A → D, sub-case 1 (has photo date)
 - [ ] R → A → D, sub-case 3 (no photos)
