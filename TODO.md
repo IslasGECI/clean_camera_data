@@ -101,3 +101,4 @@ Each pattern below needs test data, a test assertion, and fill-rule coverage. At
 ## Open Questions
 
 - [ ] Should R → R cases raise an error instead of silently not counting toward effort?
+- [ ] How should we treat rows with Estado_camara == NA or Fecha_revision_campo == NA?
