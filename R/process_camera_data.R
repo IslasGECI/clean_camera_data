@@ -47,7 +47,7 @@ apply_camera_status_rules <- function(daily_status_grid, cameras_ids_classificat
   daily_status_grid |>
     dplyr::mutate(camera_status = dplyr::case_when(
       ID %in% cameras_ids_classification$double_deactivated & camera_status == "D" & Date <= last_photo_date ~ "A",
-      ID %in% cameras_ids_classification$reactivated ~ "A",
+      ID %in% cameras_ids_classification$reactivated & (is.na(last_photo_date) | Date <= last_photo_date) ~ "A",
       ID %in% cameras_ids_classification$retired_before_active & camera_status == "R" ~ "R",
       ID %in% cameras_ids_classification$unknown_date & day_rank <= half_point ~ "A",
       ID %in% cameras_ids_classification$unknown_date & day_rank > half_point ~ "D",
