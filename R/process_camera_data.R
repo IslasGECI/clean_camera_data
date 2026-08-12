@@ -79,7 +79,8 @@ is_first_half_of_undated_period <- function(daily_status_grid, cameras_ids_class
 
 is_second_half_of_undated_period <- function(daily_status_grid, cameras_ids_classification) {
   daily_status_grid$ID %in% cameras_ids_classification$photos_without_capture_date &
-    daily_status_grid$day_rank > daily_status_grid$half_point
+    daily_status_grid$day_rank > daily_status_grid$half_point &
+    daily_status_grid$camera_status != "R"
 }
 
 is_deactivated_without_photos <- function(daily_status_grid, cameras_ids_classification) {
@@ -96,7 +97,11 @@ compute_half_point <- function(data) {
   data |>
     dplyr::mutate(
       day_rank = dplyr::row_number(),
-      half_point = ceiling(dplyr::n() / 2),
+      half_point = dplyr::if_else(
+        dplyr::last(camera_status) == "R",
+        floor(dplyr::n() / 2),
+        ceiling(dplyr::n() / 2)
+      ),
     )
 }
 
