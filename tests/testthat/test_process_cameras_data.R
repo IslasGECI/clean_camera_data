@@ -49,7 +49,7 @@ describe("Create cameras daily status", {
     expected_individual_captures_for_ct_01_double <- 2
     obtained_individual_captures_for_ct_01_double <- sum(obtained[obtained$ID == "CT-01-double-CT", ]$Individuos_capturados, na.rm = TRUE)
     expect_equal(obtained_individual_captures_for_ct_01_double, expected_individual_captures_for_ct_01_double)
-    obtained_total_photos_taken_for_ct_01_double <- obtained[obtained$ID == "CT-01-double-CT" & obtained$Fecha_captura_foto == "2022-01-03", ]$Fotos_capturadas
+    obtained_total_photos_taken_for_ct_01_double <- obtained[obtained$ID == "CT-01-double-CT" & obtained$Date == "2022-01-03", ]$Fotos_capturadas
     expected_total_photos <- 72
     expect_equal(obtained_total_photos_taken_for_ct_01_double, expected_total_photos)
   })
