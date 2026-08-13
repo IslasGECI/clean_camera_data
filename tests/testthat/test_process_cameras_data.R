@@ -12,14 +12,16 @@ describe("compute daily summary", {
 describe("Create cameras daily status", {
   cameras_campo_df <- readr::read_csv("/workdir/tests/data/camaras_campo.csv")
   cameras_memoria_df <- readr::read_csv("/workdir/tests/data/camaras_memoria.csv")
-  it("compute_daily_status", {
-    obtained <- compute_daily_status(cameras_campo_df, cameras_memoria_df)
-    obtained |> readr::write_csv("prueba.csv")
+  obtained <- compute_daily_status(cameras_campo_df, cameras_memoria_df)
+  obtained |> readr::write_csv("prueba.csv")
+  it("assert structure", {
     expected_column_names <- c("Date", "ID", "camera_status", "Individuos_capturados", "Fotos_capturadas")
     obtained_column_names <- colnames(obtained)
     expect_true(all(expected_column_names %in% obtained_column_names))
-    expected_rows <- 60
+    expected_rows <- 68
     expect_equal(nrow(obtained), expected_rows)
+  })
+  it("assert status", {
     expected_individuals_for_ct_zzz <- 2
     expect_equal(obtained[obtained$ID == "CT-01-zzz-CT" & obtained$Date == "2022-01-04", ]$Individuos_capturados, expected_individuals_for_ct_zzz)
     expected_status_for_ct_www <- c(rep("A", 2), rep("D", 2), "R")
@@ -42,5 +44,9 @@ describe("Create cameras daily status", {
     expect_equal(obtained[obtained$ID == "CT-01-rad-CT", ]$camera_status, expected_status_for_ct_rad)
     expected_status_for_ct_dad <- c(rep("A", 6), "D")
     expect_equal(obtained[obtained$ID == "CT-01-dad-CT", ]$camera_status, expected_status_for_ct_dad)
+  })
+  it("assert captures", {
+    expected_individual_captures_for_ct_01_double <- 2
+    expect_equal(obtained[obtained$ID == "CT-01-double-CT", ]$Individuos_capturados, expected_individual_captures_for_ct_01_double)
   })
 })
