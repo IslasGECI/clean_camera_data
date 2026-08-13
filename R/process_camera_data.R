@@ -85,9 +85,6 @@ fill_period <- function(days, from, to, camera_id, photo_info) {
 
 fill_a_to_d_criterion <- function(days, camera_id, photo_info) {
   camera_photo_info <- photo_info_for_camera(photo_info, camera_id)
-  if (is.null(camera_photo_info)) {
-    return(fill_all_days_down(days))
-  }
   evidence_in_period <- photo_evidence_in_period(days, camera_photo_info$photo_dates)
   if (!is.null(evidence_in_period)) {
     return(fill_active_down_until_last_evidence(days, max(evidence_in_period)))
@@ -101,7 +98,7 @@ fill_a_to_d_criterion <- function(days, camera_id, photo_info) {
 photo_info_for_camera <- function(photo_info, camera_id) {
   info <- photo_info[photo_info$ID_camara == camera_id, ]
   if (nrow(info) == 0L) {
-    return(NULL)
+    return(list(photo_dates = NULL, has_photos = FALSE))
   }
   list(
     photo_dates = info$photo_dates[[1L]],
