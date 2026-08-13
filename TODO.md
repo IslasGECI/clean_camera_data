@@ -44,7 +44,7 @@ Longer chains (3+ checks) compose the rules above period by period.
 |-----------|-----------|----------|-----------------|:---:|
 | CT-01-yyy-CT | A → A | — | All A | ✅ |
 | CT-01-zzz-CT* | A → A (photo=review date) | — | All A | ✅ |
-| CT-01-www-CT | A → R | 2 (photos, no date) | A,A,D,D,R | 🛑 |
+| CT-01-www-CT | A → R | 2 (photos, no date) | A,A,D,D,R | ✅ |
 | CT-01-xxx-CT | R → A → A | — | R,R,A…A | ✅ |
 | CT-01-ad1-CT | A → D | 1 (has photo date) | A,A,A,D,D | ✅ |
 | CT-01-ad2-CT | A → D | 2 (photos, no date) | A,A,A,D,D,D | ✅ |
@@ -59,10 +59,8 @@ Longer chains (3+ checks) compose the rules above period by period.
 
 Notes:
 
-- `CT-01-www-CT` changes from `A,A,A,D,D` to `A,A,D,D,R`: the retirement day stays `R` (mixed convention) and the "photos, no date" split uses the pessimistic `floor(N/2)` = 2 active days over its 5-day period.
-- `CT-01-rad-CT` keeps `R,R,A,A,D,D,D`: the pessimistic per-period midpoint over the A → D period (5 days → `floor(5/2)` = 2 A + 3 D) reproduces the current behavior.
+- the pessimistic per-period midpoint over the A → D period (5 days → `floor(5/2)` = 2 A + 3 D) reproduces the current behavior.
 - All other cases are unchanged by the per-period midpoint, the pessimistic default, and the mixed convention.
-- Values marked 🛑 are the expected targets for the period-by-period implementation; the corresponding tests must be updated when those cases are (re)implemented.
 
 ---
 
@@ -84,9 +82,9 @@ Each pattern below needs test data, a test assertion, and fill-rule coverage. At
 
 ## Things to Consider for Data Predating the Existence of "R"
 
-- [ ] Default to a pessimistic scenario (count less effort rather than more).
-- [ ] If captured photos exist, we know the camera worked. Example: if the camera was reviewed on August 2 with status D, the previous review date was June 1, and the memory-card review shows captured photos, we know the camera was operating in the field — apply the A → D criterion.
-- [ ] If no captured photos exist, do not count effort.
+- Default to a pessimistic scenario (count less effort rather than more).
+- If captured photos exist, we know the camera worked. Example: if the camera was reviewed on August 2 with status D, the previous review date was June 1, and the memory-card review shows captured photos, we know the camera was operating in the field — apply the A → D criterion.
+- If no captured photos exist, do not count effort.
 
 ---
 
@@ -102,3 +100,4 @@ Each pattern below needs test data, a test assertion, and fill-rule coverage. At
 
 - [ ] Should R → R cases raise an error instead of silently not counting toward effort?
 - [ ] How should we treat rows with Estado_camara == NA or Fecha_revision_campo == NA?
+- [ ] Are we counting all the records with Fecha_captura_foto on the same period? Eg, CT-01-double-captura-CT has Fecha_revision_campo = 2024-01-02 and 2024-01-09, with Fecha_captura_foto = 2022-01-03 and 2022-01-05. 
