@@ -84,20 +84,18 @@ fill_period <- function(days, from, to, camera_id, photo_info) {
 }
 
 fill_a_to_d_criterion <- function(days, camera_id, photo_info) {
-  number_of_days_to_fill <- length(days)
   camera_photo_info <- photo_info_for_camera(photo_info, camera_id)
   if (is.null(camera_photo_info)) {
-    return(rep("D", number_of_days_to_fill))
+    return(fill_all_days_down(days))
   }
-  photo_dates <- camera_photo_info$photo_dates
-  evidence_in_period <- photo_dates_in_period(days, photo_dates)
+  evidence_in_period <- photo_evidence_in_period(days, camera_photo_info$photo_dates)
   if (!is.null(evidence_in_period)) {
     return(fill_active_down_until_last_evidence(days, max(evidence_in_period)))
   }
   if (camera_photo_info$has_photos) {
     return(fill_pessimistic_midpoint(days))
   }
-  rep("D", number_of_days_to_fill)
+  fill_all_days_down(days)
 }
 
 photo_info_for_camera <- function(photo_info, camera_id) {
@@ -111,7 +109,7 @@ photo_info_for_camera <- function(photo_info, camera_id) {
   )
 }
 
-photo_dates_in_period <- function(days, photo_dates) {
+photo_evidence_in_period <- function(days, photo_dates) {
   within_period <- photo_dates[photo_dates >= min(days) & photo_dates <= max(days)]
   if (length(within_period) == 0L) NULL else within_period
 }
@@ -123,4 +121,8 @@ fill_active_down_until_last_evidence <- function(days, last_evidence) {
 fill_pessimistic_midpoint <- function(days) {
   active_days <- floor(length(days) / 2)
   c(rep("A", active_days), rep("D", length(days) - active_days))
+}
+
+fill_all_days_down <- function(days) {
+  rep("D", length(days))
 }
