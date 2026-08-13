@@ -18,8 +18,15 @@ compute_daily_status <- function(cameras_campo_df, cameras_memoria_df) {
 }
 
 add_taken_photos_and_individuals_to_daily_status_grid <- function(daily_status_grid, cameras_memoria_df) {
+  cameras_memoria_summary <- cameras_memoria_df |>
+    dplyr::group_by(ID_camara, Fecha_captura_foto) |>
+    dplyr::summarise(
+      Individuos_capturados = sum(Individuos_capturados, na.rm = TRUE),
+      Fotos_capturadas = sum(Fotos_capturadas, na.rm = TRUE),
+      .groups = "drop"
+    )
   daily_status_grid |>
-    dplyr::left_join(cameras_memoria_df, by = dplyr::join_by(ID == ID_camara, Date == Fecha_captura_foto))
+    dplyr::left_join(cameras_memoria_summary, by = dplyr::join_by(ID == ID_camara, Date == Fecha_captura_foto))
 }
 
 fill_daily_camera_status <- function(field_check_records, cameras_memoria_df) {
