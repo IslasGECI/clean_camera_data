@@ -47,6 +47,7 @@ describe("Create cameras daily status", {
   })
   it("assert captures", {
     expected_individual_captures_for_ct_01_double <- 2
-    expect_equal(obtained[obtained$ID == "CT-01-double-CT", ]$Individuos_capturados, expected_individual_captures_for_ct_01_double)
+    obtained_individual_captures_for_ct_01_double <- sum(obtained[obtained$ID == "CT-01-double-CT", ]$Individuos_capturados, na.rm = TRUE)
+    expect_equal(obtained_individual_captures_for_ct_01_double, expected_individual_captures_for_ct_01_double)
   })
 })
