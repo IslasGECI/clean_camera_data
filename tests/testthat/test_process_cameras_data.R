@@ -1,6 +1,7 @@
 describe("compute daily summary", {
   cameras_daily_status_df <- readr::read_csv("/workdir/tests/data/cameras_daily_status.csv", show_col_types = FALSE)
   obtained <- compute_daily_summary(cameras_daily_status_df)
+  print(obtained)
   obtained_column_names <- colnames(obtained)
   expected_column_names <- c("Date", "Number_of_camera_traps", "Effort", "Total_photos", "Total_individuals")
   expect_true(all(expected_column_names %in% obtained_column_names))
@@ -18,7 +19,7 @@ describe("Create cameras daily status", {
     expected_column_names <- c("Date", "ID", "camera_status", "Individuos_capturados", "Fotos_capturadas")
     obtained_column_names <- colnames(obtained)
     expect_true(all(expected_column_names %in% obtained_column_names))
-    expected_rows <- 68
+    expected_rows <- 76
     expect_equal(nrow(obtained), expected_rows)
   })
   it("assert status", {
@@ -52,5 +53,9 @@ describe("Create cameras daily status", {
     obtained_total_photos_taken_for_ct_01_double <- obtained[obtained$ID == "CT-01-double-CT" & obtained$Date == "2022-01-03", ]$Fotos_capturadas
     expected_total_photos <- 72
     expect_equal(obtained_total_photos_taken_for_ct_01_double, expected_total_photos)
+
+    obtained_individual_capture_for_ct_02_double_ene03 <- obtained[obtained$ID == "CT-02-double-CT" & obtained$Date == "2022-01-03", ]$Individuos_capturados
+    expected_capture_for_ct_02_ene03 <- 1
+    expect_equal(obtained_individual_capture_for_ct_02_double_ene03, expected_capture_for_ct_02_ene03)
   })
 })
