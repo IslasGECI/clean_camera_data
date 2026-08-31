@@ -22,7 +22,7 @@ add_taken_photos_and_individuals_to_daily_status_grid <- function(daily_status_g
     dplyr::group_by(ID_camara, Fecha_captura_foto) |>
     dplyr::summarise(
       Individuos_capturados = sum(Individuos_capturados, na.rm = TRUE),
-      Fotos_capturadas = sum(Fotos_capturadas, na.rm = TRUE),
+      Fotos_capturadas = mean(Fotos_capturadas, na.rm = TRUE),
       .groups = "drop"
     )
   daily_status_grid |>
