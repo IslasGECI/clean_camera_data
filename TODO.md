@@ -70,9 +70,9 @@ Each pattern below needs test data, a test assertion, and fill-rule coverage. At
 
 - [ ] R → A → D, sub-case 1 (has photo date)
 - [ ] R → A → D, sub-case 3 (no photos)
-- [ ] D → A → D, sub-case 2 (photos, no date)
-- [ ] D → A → D, sub-case 3 (no photos)
-- [ ] A → D → A (active, deactivated, reactivated)
+- [x] D → A → D, sub-case 2 (photos, no date). ID CT-08-002-JV (D 2026-08-2024 → A 2024-08-11 → D 2025-12-14) ✅ Visual inspection with real data
+- [x] D → A → D, sub-case 3 (no photos) ✅ Visual inspection in tests (not commited)
+- [x] A → D → A (active, deactivated, reactivated) ✅ Visual inspection in tests (not commited)
 - [ ] R → A → R (retired, reactivated, retired again)
 - [ ] A → R → A (active, retired, reactivated)
 - [ ] D → R → A (deactivated, retired, reactivated)
@@ -99,5 +99,5 @@ Each pattern below needs test data, a test assertion, and fill-rule coverage. At
 ## Open Questions
 
 - [ ] Should R → R cases raise an error instead of silently not counting toward effort?
-- [ ] How should we treat rows with Estado_camara == NA or Fecha_revision_campo == NA?
-- [ ] Are we counting all the records with Fecha_captura_foto on the same period? Eg, CT-01-double-captura-CT has Fecha_revision_campo = 2024-01-02 and 2024-01-09, with Fecha_captura_foto = 2022-01-03 and 2022-01-05. 
+- [ ] How should we treat rows with Estado_camara == NA ? We should drop NA states. On the code or on the curated data?
+- [x] Are we counting all the records with Fecha_captura_foto on the same period? Eg, CT-02-double-CT has Fecha_revision_campo = 2024-01-02 and 2024-01-09, with Fecha_captura_foto = 2022-01-03 and 2022-01-05. 
