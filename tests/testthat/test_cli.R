@@ -9,8 +9,8 @@ describe("Get version of the module", {
 
 describe("Cli for module", {
   it("write_cameras_summary", {
-    revision_campo_path <- "/workdir/tests/data/camaras_revision_campo.csv"
-    revision_memoria_path <- "/workdir/tests/data/camaras_revision_memoria.csv"
+    revision_campo_path <- "/workdir/tests/data/camaras_campo.csv"
+    revision_memoria_path <- "/workdir/tests/data/camaras_memoria.csv"
     output_path <- "/workdir/tests/data/cameras_summary.csv"
     options <- list(
       "camera-field-check-path" = revision_campo_path,
