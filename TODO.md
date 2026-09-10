@@ -2,7 +2,7 @@
 
 ## Architecture Decisions
 
-- **Grain**: The `calculate_cameras_summary()` pipeline will be replaced with the `compute_daily_status()` → `compute_daily_summary()` pipeline, producing **daily** output. CLI changes deferred to a later step.
+- **Grain**: The `calculate_cameras_summary()` pipeline is replaced with the `compute_daily_status()` → `compute_daily_summary()` pipeline, producing **daily** output. The CLI `write_cameras_summary()` already uses the new pipeline.
 - **Approach**: Period-by-period filling. For each camera ID, iterate its field checks in date order; each pair of consecutive checks (e.g. `A → D`) defines a period, and the days of that period are filled according to the transition's fill rule (see *Period Fill Rules*). This replaces the previous top-down post-hoc correction via `apply_camera_status_rules()`.
 - **Midpoint scope**: The "photos, no date" sub-case (A → D criterion #2) computes the midpoint **per period** — over the interval between the two review dates of that transition — not over the camera's whole observed span.
 - **Pessimistic default**: When activity dates are unknown, underestimate effort — prefer "not working" over "working". For the "photos, no date" sub-case this means filling `floor(N/2)` active days (not `ceil(N/2)`).
@@ -67,6 +67,8 @@ Notes:
 ## Remaining Multi-Transition Patterns
 
 Each pattern below needs test data, a test assertion, and fill-rule coverage. At least one sub-case per pattern must be covered.
+
+> **Deferred**: the remaining patterns below will not be tested for now.
 
 - [ ] R → A → D, sub-case 1 (has photo date)
 - [ ] R → A → D, sub-case 3 (no photos)
