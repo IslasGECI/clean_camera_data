@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.4.0] - 2026-09-10
+
+### Changed
+- The CLI function `write_cameras_summary()` now produces a **daily** summary of cameras, effort, photos, and individuals, using the new `compute_daily_status()` → `compute_daily_summary()` pipeline instead of the weekly `calculate_cameras_summary()` pipeline.
+- The package is renamed from `cameraData` to `cameradata`, and the `geci.optparse` dependency is renamed to `gecioptparse`.
+
 ## [0.3.2] - 2026-02-05
 ### Fixed
 - The CLI function `write_cameras_summary()` now distributes effort on a weekly basis.
@@ -44,5 +50,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - CLI function `write_camera_info()`
 
+[0.4.0]: https://github.com/IslasGECI/clean_camera_data/compare/v0.3.2...v0.4.0
 [0.2.0]: https://github.com/IslasGECI/clean_camera_data/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/IslasGECI/clean_camera_data/compare/v0.1.0

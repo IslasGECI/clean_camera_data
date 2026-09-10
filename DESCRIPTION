@@ -1,5 +1,5 @@
 Package: cameradata
-Title: Template for R projects
+Title: Clean and Summarize Camera Trap Monitoring Data
 Authors@R: c(
     person(given = "Ciencia de Datos",
            family = "GECI",
@@ -7,7 +7,10 @@ Authors@R: c(
            email = "ciencia.datos@islas.org.mx"
            ))
 Config/testthat/edition: 3
-Description: Plantilla de Ciencia de Datos en GECI para proyectos en R
+Description: Cleans and summarizes camera trap monitoring data. Joins the
+    camera field checks with the camera memory checks, fills the missing weekly 
+    records, and produces a daily summary of the installed camera traps, 
+    sampling effort, captured photos, and detected individuals.
 Encoding: UTF-8
 Imports:
     dplyr,
@@ -20,7 +23,7 @@ Imports:
     stringr,
     tibble,
 LazyData: true
-License: AGPL-3.0-or-later
+License: AGPL-3 + file LICENSE
 Roxygen: list(markdown = TRUE)
 Suggests:
     covr,
@@ -33,5 +36,5 @@ Remotes:
     IslasGECI/gecioptparse,
     IslasGECI/testtools,
 Type: Package
-Version: 0.3.2
-Config/roxygen2/version: 8.0.0
+Version: 0.4.0
+Config/roxygen2/version: 8.1.0
