@@ -90,16 +90,15 @@ Each pattern below needs test data, a test assertion, and fill-rule coverage. At
 
 ---
 
-## How Do We Handle Photo Capture Dates That Are Out of Range?
-
-- [ ] Raise an error.
-- [ ] Consider: if a row in `cameras_daily_status` has NAs in both `Revision` and `camera_status`, this may indicate a date was entered incorrectly.
-- [ ] Treat this as evidence that something is wrong with the data (e.g., a misconfigured date).
+## TODO
+- [ ] The Total_photos on `compute_daily_summary()` is not complete right. Needs to improve
+- [ ] How Do We Handle Photo Capture Dates That Are Out of Range? Raise an error.
+- [x] Consider: if a row in `cameras_daily_status` has NAs in both `Revision` and `camera_status`, this may indicate a date was entered incorrectly: Treat this as evidence that something is wrong with the data (e.g., a misconfigured date).
 
 ---
 
 ## Open Questions
 
 - [ ] Should R → R cases raise an error instead of silently not counting toward effort?
-- [ ] How should we treat rows with Estado_camara == NA ? We should drop NA states. On the code or on the curated data?
+- [X] How should we treat rows with Estado_camara == NA ? We should drop NA states. On the code or on the curated data? we droped them on the data
 - [x] Are we counting all the records with Fecha_captura_foto on the same period? Eg, CT-02-double-CT has Fecha_revision_campo = 2024-01-02 and 2024-01-09, with Fecha_captura_foto = 2022-01-03 and 2022-01-05. 
